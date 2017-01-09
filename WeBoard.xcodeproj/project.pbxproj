@@ -8,20 +8,35 @@
 
 /* Begin PBXBuildFile section */
 		91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EBF31DFE51A60058D05B /* AppDelegate.swift */; };
-		91B9EBF61DFE51A60058D05B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EBF51DFE51A60058D05B /* ViewController.swift */; };
 		91B9EBF91DFE51A60058D05B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBF71DFE51A60058D05B /* Main.storyboard */; };
 		91B9EBFB1DFE51A60058D05B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBFA1DFE51A60058D05B /* Assets.xcassets */; };
 		91B9EBFE1DFE51A60058D05B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBFC1DFE51A60058D05B /* LaunchScreen.storyboard */; };
+		91B9EC0C1DFE9EEA0058D05B /* FIFOQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC081DFE9EEA0058D05B /* FIFOQueue.swift */; };
+		91B9EC0D1DFE9EEA0058D05B /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC091DFE9EEA0058D05B /* SwiftNotice.swift */; };
+		91B9EC0E1DFE9EEA0058D05B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC0A1DFE9EEA0058D05B /* Utility.swift */; };
+		91B9EC131DFEA22A0058D05B /* SSFMainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC121DFEA22A0058D05B /* SSFMainCollectionViewController.swift */; };
+		91B9EC151DFEA3560058D05B /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */; };
+		91E2ACA81E08CDDE00EF9A0D /* SSFRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACA71E08CDDE00EF9A0D /* SSFRecordViewController.swift */; };
+		91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */; };
+		91E2ACAE1E09051900EF9A0D /* SSFCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		91B9EBF01DFE51A60058D05B /* WeBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91B9EBF31DFE51A60058D05B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		91B9EBF51DFE51A60058D05B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		91B9EBF81DFE51A60058D05B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		91B9EBFA1DFE51A60058D05B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91B9EBFD1DFE51A60058D05B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91B9EBFF1DFE51A60058D05B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		91B9EC081DFE9EEA0058D05B /* FIFOQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIFOQueue.swift; sourceTree = "<group>"; };
+		91B9EC091DFE9EEA0058D05B /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
+		91B9EC0A1DFE9EEA0058D05B /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		91B9EC121DFEA22A0058D05B /* SSFMainCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFMainCollectionViewController.swift; sourceTree = "<group>"; };
+		91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		91B9EC1E1DFEAD070058D05B /* WeBoard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeBoard-Bridging-Header.h"; sourceTree = "<group>"; };
+		91E2ACA71E08CDDE00EF9A0D /* SSFRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFRecordViewController.swift; sourceTree = "<group>"; };
+		91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateNavigationViewController.swift; sourceTree = "<group>"; };
+		91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFCanvasView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +69,78 @@
 		91B9EBF21DFE51A60058D05B /* WeBoard */ = {
 			isa = PBXGroup;
 			children = (
+				91B9EC0B1DFE9EEA0058D05B /* Main */,
+				91B9EC061DFE9EEA0058D05B /* Expand */,
+				91B9EC051DFE82150058D05B /* Supportting */,
+			);
+			path = WeBoard;
+			sourceTree = "<group>";
+		};
+		91B9EC051DFE82150058D05B /* Supportting */ = {
+			isa = PBXGroup;
+			children = (
 				91B9EBF31DFE51A60058D05B /* AppDelegate.swift */,
-				91B9EBF51DFE51A60058D05B /* ViewController.swift */,
-				91B9EBF71DFE51A60058D05B /* Main.storyboard */,
 				91B9EBFA1DFE51A60058D05B /* Assets.xcassets */,
 				91B9EBFC1DFE51A60058D05B /* LaunchScreen.storyboard */,
 				91B9EBFF1DFE51A60058D05B /* Info.plist */,
+				91B9EC1E1DFEAD070058D05B /* WeBoard-Bridging-Header.h */,
 			);
-			path = WeBoard;
+			name = Supportting;
+			sourceTree = "<group>";
+		};
+		91B9EC061DFE9EEA0058D05B /* Expand */ = {
+			isa = PBXGroup;
+			children = (
+				91B9EC071DFE9EEA0058D05B /* Utility */,
+			);
+			path = Expand;
+			sourceTree = "<group>";
+		};
+		91B9EC071DFE9EEA0058D05B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				91B9EC081DFE9EEA0058D05B /* FIFOQueue.swift */,
+				91B9EC091DFE9EEA0058D05B /* SwiftNotice.swift */,
+				91B9EC0A1DFE9EEA0058D05B /* Utility.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		91B9EC0B1DFE9EEA0058D05B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				91B9EC101DFEA1F50058D05B /* Model */,
+				91B9EC111DFEA1F50058D05B /* View */,
+				91B9EC0F1DFEA1F50058D05B /* Controller */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		91B9EC0F1DFEA1F50058D05B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				91B9EC121DFEA22A0058D05B /* SSFMainCollectionViewController.swift */,
+				91E2ACA71E08CDDE00EF9A0D /* SSFRecordViewController.swift */,
+				91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		91B9EC101DFEA1F50058D05B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		91B9EC111DFEA1F50058D05B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				91B9EBF71DFE51A60058D05B /* Main.storyboard */,
+				91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */,
+				91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +175,8 @@
 				TargetAttributes = {
 					91B9EBEF1DFE51A60058D05B = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 6TN2Z9K2RK;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -136,8 +217,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91B9EBF61DFE51A60058D05B /* ViewController.swift in Sources */,
+				91E2ACA81E08CDDE00EF9A0D /* SSFRecordViewController.swift in Sources */,
+				91E2ACAE1E09051900EF9A0D /* SSFCanvasView.swift in Sources */,
+				91B9EC0E1DFE9EEA0058D05B /* Utility.swift in Sources */,
+				91B9EC151DFEA3560058D05B /* MainCollectionViewCell.swift in Sources */,
+				91B9EC0D1DFE9EEA0058D05B /* SwiftNotice.swift in Sources */,
 				91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */,
+				91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */,
+				91B9EC131DFEA22A0058D05B /* SSFMainCollectionViewController.swift in Sources */,
+				91B9EC0C1DFE9EEA0058D05B /* FIFOQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +238,7 @@
 				91B9EBF81DFE51A60058D05B /* Base */,
 			);
 			name = Main.storyboard;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		91B9EBFC1DFE51A60058D05B /* LaunchScreen.storyboard */ = {
@@ -208,6 +297,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "SWIFT_OBJC_BRIDGING_HEADER WeBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -250,6 +340,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "SWIFT_OBJC_BRIDGING_HEADER WeBoard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -260,10 +351,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 6TN2Z9K2RK;
 				INFOPLIST_FILE = WeBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -272,10 +367,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 6TN2Z9K2RK;
 				INFOPLIST_FILE = WeBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -299,6 +397,7 @@
 				91B9EC041DFE51A60058D05B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
