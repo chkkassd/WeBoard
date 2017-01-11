@@ -8,6 +8,9 @@
 
 import UIKit
 
+let DefaultLineColor = UIColor.black
+let DefaultLineWidth = 5.0
+
 class SSFCanvasView: UIView {
 
     override func draw(_ rect: CGRect) {
@@ -61,10 +64,10 @@ class SSFCanvasView: UIView {
     private var previousPoint: CGPoint!
     
     ///The line width of pain
-    public var brushWidth = 2.0
+    public var brushWidth = DefaultLineWidth
     
     ///The line color of pain
-    public var brushColor = UIColor.black
+    public var brushColor = DefaultLineColor
     
     //MARK: Touch behavies
     

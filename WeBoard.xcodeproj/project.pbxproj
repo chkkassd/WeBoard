@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91199CDA1E26080100FAB992 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CD91E26080100FAB992 /* RoundButton.swift */; };
+		91199CDC1E262E0400FAB992 /* SSFElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CDB1E262E0400FAB992 /* SSFElementView.swift */; };
+		91199CDE1E26308900FAB992 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CDD1E26308900FAB992 /* Constant.swift */; };
 		91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EBF31DFE51A60058D05B /* AppDelegate.swift */; };
 		91B9EBF91DFE51A60058D05B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBF71DFE51A60058D05B /* Main.storyboard */; };
 		91B9EBFB1DFE51A60058D05B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBFA1DFE51A60058D05B /* Assets.xcassets */; };
@@ -22,6 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		91199CD91E26080100FAB992 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		91199CDB1E262E0400FAB992 /* SSFElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFElementView.swift; sourceTree = "<group>"; };
+		91199CDD1E26308900FAB992 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		91B9EBF01DFE51A60058D05B /* WeBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91B9EBF31DFE51A60058D05B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91B9EBF81DFE51A60058D05B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				91B9EC071DFE9EEA0058D05B /* Utility */,
+				91199CDD1E26308900FAB992 /* Constant.swift */,
 			);
 			path = Expand;
 			sourceTree = "<group>";
@@ -139,6 +146,8 @@
 				91B9EBF71DFE51A60058D05B /* Main.storyboard */,
 				91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */,
 				91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */,
+				91199CD91E26080100FAB992 /* RoundButton.swift */,
+				91199CDB1E262E0400FAB992 /* SSFElementView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -217,15 +226,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91199CDC1E262E0400FAB992 /* SSFElementView.swift in Sources */,
 				91E2ACA81E08CDDE00EF9A0D /* SSFRecordViewController.swift in Sources */,
 				91E2ACAE1E09051900EF9A0D /* SSFCanvasView.swift in Sources */,
 				91B9EC0E1DFE9EEA0058D05B /* Utility.swift in Sources */,
 				91B9EC151DFEA3560058D05B /* MainCollectionViewCell.swift in Sources */,
 				91B9EC0D1DFE9EEA0058D05B /* SwiftNotice.swift in Sources */,
 				91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */,
+				91199CDA1E26080100FAB992 /* RoundButton.swift in Sources */,
 				91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */,
 				91B9EC131DFEA22A0058D05B /* SSFMainCollectionViewController.swift in Sources */,
 				91B9EC0C1DFE9EEA0058D05B /* FIFOQueue.swift in Sources */,
+				91199CDE1E26308900FAB992 /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +264,74 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		91199CD51E24C50200FAB992 /* UAT */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "SWIFT_OBJC_BRIDGING_HEADER WeBoard-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = UAT;
+		};
+		91199CD61E24C50200FAB992 /* UAT */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 6TN2Z9K2RK;
+				INFOPLIST_FILE = WeBoard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = UAT;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/$(PROJECT_NAME)-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = UAT;
+		};
 		91B9EC001DFE51A60058D05B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -385,6 +465,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91B9EC001DFE51A60058D05B /* Debug */,
+				91199CD51E24C50200FAB992 /* UAT */,
 				91B9EC011DFE51A60058D05B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -394,6 +475,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				91B9EC031DFE51A60058D05B /* Debug */,
+				91199CD61E24C50200FAB992 /* UAT */,
 				91B9EC041DFE51A60058D05B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
