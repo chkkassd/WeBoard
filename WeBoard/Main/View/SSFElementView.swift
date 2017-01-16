@@ -21,6 +21,7 @@ class SSFElementView: UIView {
     
     init(image: UIImage) {
         super.init(frame: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+        self.frame = CGRect(x: 0, y: 0, width: adjustSize(withImage: image).width, height: adjustSize(withImage: image).height)
         self.center = CGPoint(x: ScreenWidth/2, y: ScreenHeight/2)
         imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height))
         imageView.image = image
@@ -28,6 +29,24 @@ class SSFElementView: UIView {
         self.originFrame = self.frame
         configureGesture()
         
+    }
+    
+    private func adjustSize(withImage image: UIImage) -> CGSize {
+        var ratio = 0.0
+        var size = image.size
+        if image.size.height > ScreenHeight , image.size.width < ScreenWidth {
+            ratio = Double(ScreenHeight) / Double(image.size.height)
+            size = CGSize(width: size.width * CGFloat(ratio), height: ScreenHeight)
+        } else if image.size.width > ScreenWidth , image.size.height < ScreenHeight {
+            ratio = Double(ScreenWidth) / Double(image.size.width)
+            size = CGSize(width: ScreenWidth, height: size.height * CGFloat(ratio))
+        } else if image.size.width > ScreenWidth , image.size.height > ScreenHeight {
+            let ratio1 = Double(ScreenWidth) / Double(size.width)
+            let ratio2 = Double(ScreenHeight) / Double(size.height)
+            ratio = ratio1 > ratio2 ? ratio2 : ratio1
+            size = CGSize(width: size.width * CGFloat(ratio), height: size.height * CGFloat(ratio))
+        }
+        return size
     }
     
     private func configureGesture() {

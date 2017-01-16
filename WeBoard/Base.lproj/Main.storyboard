@@ -207,6 +207,29 @@
                                 <rect key="frame" x="0.0" y="30" width="627" height="345"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2o-l5-Zfv" customClass="RoundButton" customModule="WeBoard" customModuleProvider="target">
+                                <rect key="frame" x="10" y="157" width="60" height="60"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="OWI-gA-oY9"/>
+                                    <constraint firstAttribute="height" constant="60" id="qO0-3x-ywg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="start"/>
+                                <state key="selected" title="stop"/>
+                                <connections>
+                                    <action selector="startButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="J7P-3X-neA"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80H-3z-7RP">
+                                <rect key="frame" x="8" y="352.5" width="80" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="KEC-1n-gNP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -214,22 +237,63 @@
                             <constraint firstItem="Qdy-8Y-hFw" firstAttribute="top" secondItem="LuJ-OG-vtg" secondAttribute="top" id="4ni-h6-1cT"/>
                             <constraint firstItem="mPG-Fu-Er6" firstAttribute="leading" secondItem="LuJ-OG-vtg" secondAttribute="leading" id="7y2-MY-21K"/>
                             <constraint firstItem="Wx5-H5-AMl" firstAttribute="top" secondItem="gKj-az-csh" secondAttribute="bottom" id="8Zc-NN-nsL"/>
+                            <constraint firstItem="80H-3z-7RP" firstAttribute="leading" secondItem="LuJ-OG-vtg" secondAttribute="leading" constant="8" id="BRq-Vj-24U"/>
                             <constraint firstItem="gKj-az-csh" firstAttribute="top" secondItem="mPG-Fu-Er6" secondAttribute="bottom" id="Gtb-4C-b6c"/>
                             <constraint firstAttribute="trailing" secondItem="Qdy-8Y-hFw" secondAttribute="trailing" id="LAc-nb-4qi"/>
                             <constraint firstItem="Qdy-8Y-hFw" firstAttribute="leading" secondItem="gKj-az-csh" secondAttribute="trailing" id="U6e-1g-bo2"/>
+                            <constraint firstItem="m2o-l5-Zfv" firstAttribute="leading" secondItem="LuJ-OG-vtg" secondAttribute="leading" constant="10" id="VRs-dU-XXn"/>
+                            <constraint firstItem="Wx5-H5-AMl" firstAttribute="top" secondItem="80H-3z-7RP" secondAttribute="bottom" constant="2" id="eHC-vv-n3B"/>
                             <constraint firstItem="mPG-Fu-Er6" firstAttribute="top" secondItem="LuJ-OG-vtg" secondAttribute="top" id="oAN-lh-Vgu"/>
                             <constraint firstItem="gKj-az-csh" firstAttribute="leading" secondItem="LuJ-OG-vtg" secondAttribute="leading" id="puZ-z7-9rf"/>
                             <constraint firstItem="Wx5-H5-AMl" firstAttribute="top" secondItem="Qdy-8Y-hFw" secondAttribute="bottom" id="uGk-oE-rUC"/>
+                            <constraint firstItem="m2o-l5-Zfv" firstAttribute="centerY" secondItem="LuJ-OG-vtg" secondAttribute="centerY" id="vlc-oU-IeA"/>
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="canvasView" destination="gKj-az-csh" id="mxR-sH-Egk"/>
+                        <outlet property="startButton" destination="m2o-l5-Zfv" id="rgg-2h-Pum"/>
+                        <outlet property="timeLabel" destination="80H-3z-7RP" id="83T-dv-TJq"/>
+                        <segue destination="dWj-z6-vFh" kind="show" identifier="showBackgroundCollectionViewController" id="uH1-Ba-bEz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fXI-QF-j60" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1739.2803598200901" y="44"/>
+        </scene>
+        <!--Background Collection View Controller-->
+        <scene sceneID="IcC-tQ-ycV">
+            <objects>
+                <collectionViewController id="dWj-z6-vFh" customClass="SSFBackgroundCollectionViewController" customModule="WeBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="uDO-Md-sdr">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="aKq-fc-wPF">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BackgroundCell" id="zD7-P7-wmq">
+                                <rect key="frame" x="10" y="10" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="dWj-z6-vFh" id="7w7-fD-Y3J"/>
+                            <outlet property="delegate" destination="dWj-z6-vFh" id="fSd-dT-TuM"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fr1-kn-a30" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2440" y="44"/>
         </scene>
         <!--Rotate Navigation View Controller-->
         <scene sceneID="fsj-SR-Xg2">

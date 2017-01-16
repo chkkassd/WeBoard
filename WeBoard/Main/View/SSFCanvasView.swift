@@ -19,6 +19,23 @@ class SSFCanvasView: UIView {
         context.draw(cacheImage, in: self.bounds)
     }
 
+    //MARK: Public methods to draw
+    
+    public func drawBackground(withColor color : UIColor) {
+        cacheContext?.setFillColor(color.cgColor)
+        cacheContext?.fill(self.bounds)
+        self.setNeedsDisplay()
+    }
+    
+    public func drawBackground(withImage image: UIImage) {
+        cacheContext?.saveGState()
+        cacheContext?.translateBy(x: 0, y: self.bounds.size.height)
+        cacheContext?.scaleBy(x: 1, y: -1)
+        cacheContext?.draw(image.cgImage!, in: self.bounds)
+        cacheContext?.restoreGState()
+        self.setNeedsDisplay()
+    }
+    
     ///Call this function to draw point to the bitmapContext firstly,and then draw the image of bitmapContext to the current context.
     private func drawToCache(lastPoint: CGPoint, newPoint: CGPoint) {
         cacheContext?.setLineWidth(CGFloat(brushWidth))
@@ -69,6 +86,8 @@ class SSFCanvasView: UIView {
     ///The line color of pain
     public var brushColor = DefaultLineColor
     
+    weak var delegate: SSFCanvasViewDelegate?
+    
     //MARK: Touch behavies
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -100,14 +119,23 @@ class SSFCanvasView: UIView {
     private func touchBegan(atPoint point: CGPoint) {
         previousPoint = point
         drawToCache(lastPoint: previousPoint, newPoint: point)
+        delegate?.canvasView(touchBeganAt: point)
     }
     
     private func touchMove(toPoint point: CGPoint) {
         drawToCache(lastPoint: previousPoint, newPoint: point)
         previousPoint = point
+        delegate?.canvasView(touchMoveAt: point)
     }
     
     private func touchEnd(atPoint point: CGPoint) {
         previousPoint = point
+        delegate?.canvasView(touchEndAt: point, withLineColor: brushColor, withLineWidth: brushWidth)
     }
+}
+
+protocol SSFCanvasViewDelegate: class {
+    func canvasView(touchBeganAt point: CGPoint)
+    func canvasView(touchMoveAt point: CGPoint)
+    func canvasView(touchEndAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double)
 }
