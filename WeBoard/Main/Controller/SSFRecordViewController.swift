@@ -70,24 +70,6 @@ class SSFRecordViewController: UIViewController {
         }
     }
     
-    fileprivate func showActionSheet() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let resumeAction = UIAlertAction(title: "继续", style: UIAlertActionStyle.default) { [unowned self] _ in
-            self.startButton.isSelected = !self.startButton.isSelected
-            self.resumeRecord()
-        }
-        let clearAction = UIAlertAction(title: "废弃", style: UIAlertActionStyle.default) { [unowned self] _ in
-            self.clearAll()
-        }
-        let saveAction = UIAlertAction(title: "保存", style: UIAlertActionStyle.default) { [unowned self] _ in
-            
-        }
-        alert.addAction(resumeAction)
-        alert.addAction(clearAction)
-        alert.addAction(saveAction)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     //MARK: Methods
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -148,6 +130,23 @@ extension SSFRecordViewController {
         if UIImagePickerController.isSourceTypeAvailable(sourcetype) {
             present(imagePickerController, animated: true, completion: nil)
         }
+    }
+    
+    fileprivate func showActionSheet() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let resumeAction = UIAlertAction(title: "继续", style: UIAlertActionStyle.default) {  _ in
+            self.startButton.isSelected = !self.startButton.isSelected
+            self.resumeRecord()
+        }
+        let clearAction = UIAlertAction(title: "废弃", style: UIAlertActionStyle.default) { _ in
+            self.clearAll()
+        }
+        let saveAction = UIAlertAction(title: "保存", style: UIAlertActionStyle.default) { _ in
+        }
+        alert.addAction(resumeAction)
+        alert.addAction(clearAction)
+        alert.addAction(saveAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: Recorder control
