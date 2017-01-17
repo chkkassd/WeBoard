@@ -142,6 +142,7 @@ extension SSFRecordViewController {
             self.clearAll()
         }
         let saveAction = UIAlertAction(title: "保存", style: UIAlertActionStyle.default) { _ in
+            self.endAndSaveRecord()
         }
         alert.addAction(resumeAction)
         alert.addAction(clearAction)
@@ -174,8 +175,8 @@ extension SSFRecordViewController {
         startTimer()
     }
     
-    fileprivate func endRecord() {
-        
+    fileprivate func endAndSaveRecord() {
+        SSFRecorder.sharedInstance.endAudioRecord()
     }
     
     fileprivate func clearAll() {

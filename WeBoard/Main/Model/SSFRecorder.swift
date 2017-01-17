@@ -8,14 +8,20 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
 let kAudioRecorderSampleRate = 44100.0
 let DefaultAudioName = "sound.pcm"
+let DefaultPenLinesName = "penLines.plist"
+let DefaultBackgroundImageName = "background.jpg"
+let DefaultCoverImageName = "cover.jpg"
 
 class SSFRecorder {
     static let sharedInstance = SSFRecorder()
     
     public var audioRecoder: AVAudioRecorder?
+    
+    private var startTime: Date?
     
     // MARK: Public API for audio recording
     public func startAudioRecord() {
@@ -48,7 +54,7 @@ class SSFRecorder {
             //录音的质量
             recordSetting[AVEncoderAudioQualityKey] = AVAudioQuality.medium.rawValue//一定要使用enum的原始值（rawvalue），不然recorder无法正常启动
             
-            //3. Set the stored path of the audio
+            //3. Set the temporary stored path of the audio
             let temporaryAudioURL = URL.init(fileURLWithPath: DirectoryPath().pathOfTemporary()).appendingPathComponent(DefaultAudioName)
             
             //4. create the audio recorder
@@ -57,12 +63,15 @@ class SSFRecorder {
     
         audioRecoder?.prepareToRecord()
         audioRecoder?.record()
+        startTime = Date()
     }
     
     public func endAudioRecord() {
         audioRecoder?.stop()
         audioRecoder = nil
         try? AVAudioSession.sharedInstance().setActive(false)
+        
+        startTime = nil
     }
     
     public func pauseAudioRecord() {
@@ -83,5 +92,43 @@ class SSFRecorder {
         return recorder.isRecording
     }
     
-    // MARK: Private Methods
+    // MARK: Save operation
+    
+    private func createDirectory() -> URL? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yy-MM-dd-HH-mm-ss"
+        guard let time = startTime else { return nil }
+        let timeString = formatter.string(from: time)
+        return DirectoryPath().creatDirectoryURLInDocument(withDirectoryName: timeString)
+    }
+    
+    private func saveRecordSound() -> Bool {
+        guard let directoryURL = createDirectory() else { return false }
+        let temporaryAudioURL = URL.init(fileURLWithPath: DirectoryPath().pathOfTemporary()).appendingPathComponent(DefaultAudioName)
+        let destinationAudioURL = directoryURL.appendingPathComponent(DefaultAudioName)
+        do {
+            try FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)
+            return true
+        } catch {
+            return false
+        }
+    }
+    
+    private func save(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage) -> Bool{
+        guard let directoryURL = createDirectory() else { return false }
+        let penLinesURL = directoryURL.appendingPathComponent(DefaultPenLinesName)
+        let backgroundURL = directoryURL.appendingPathComponent(DefaultBackgroundImageName)
+        let coverURL = directoryURL.appendingPathComponent(DefaultCoverImageName)
+
+        //1.save image
+        guard let backgroundImageData = UIImageJPEGRepresentation(backgroundImage, 1.0) else { return false }
+        guard let coverImageData = UIImageJPEGRepresentation(coverImage, 1.0) else { return false }
+        do {
+            try backgroundImageData.write(to: backgroundURL)
+            try coverImageData.write(to: coverURL)
+            return true
+        } catch {
+            return false
+        }
+    }
 }
