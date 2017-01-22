@@ -12,7 +12,7 @@ import UIKit
 
 let kAudioRecorderSampleRate = 44100.0
 let DefaultAudioName = "sound.pcm"
-let DefaultPenLinesName = "penLines.plist"
+let DefaultPenLinesName = "penLines.JSON"
 let DefaultBackgroundImageName = "background.jpg"
 let DefaultCoverImageName = "cover.jpg"
 
@@ -95,40 +95,62 @@ class SSFRecorder {
     // MARK: Save operation
     
     private func createDirectory() -> URL? {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yy-MM-dd-HH-mm-ss"
-        guard let time = startTime else { return nil }
-        let timeString = formatter.string(from: time)
-        return DirectoryPath().creatDirectoryURLInDocument(withDirectoryName: timeString)
+        let uuid = NSUUID().uuidString
+        let weiBoardPathName = "\(uuid)_WeiBoard"
+        return DirectoryPath().creatDirectoryURLInDocument(withDirectoryName: weiBoardPathName)
     }
     
-    private func saveRecordSound() -> Bool {
-        guard let directoryURL = createDirectory() else { return false }
+    private func saveRecord(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage){
+        guard let directoryURL = createDirectory() else { return }
         let temporaryAudioURL = URL.init(fileURLWithPath: DirectoryPath().pathOfTemporary()).appendingPathComponent(DefaultAudioName)
+        
+        //path of saved
         let destinationAudioURL = directoryURL.appendingPathComponent(DefaultAudioName)
-        do {
-            try FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)
-            return true
-        } catch {
-            return false
-        }
-    }
-    
-    private func save(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage) -> Bool{
-        guard let directoryURL = createDirectory() else { return false }
         let penLinesURL = directoryURL.appendingPathComponent(DefaultPenLinesName)
         let backgroundURL = directoryURL.appendingPathComponent(DefaultBackgroundImageName)
         let coverURL = directoryURL.appendingPathComponent(DefaultCoverImageName)
 
-        //1.save image
-        guard let backgroundImageData = UIImageJPEGRepresentation(backgroundImage, 1.0) else { return false }
-        guard let coverImageData = UIImageJPEGRepresentation(coverImage, 1.0) else { return false }
-        do {
-            try backgroundImageData.write(to: backgroundURL)
-            try coverImageData.write(to: coverURL)
-            return true
-        } catch {
-            return false
+        //image data
+        guard let backgroundImageData = UIImageJPEGRepresentation(backgroundImage, 1.0) else { return }
+        guard let coverImageData = UIImageJPEGRepresentation(coverImage, 1.0) else { return }
+        
+        //JSON object of pen lines
+        let penDic = translateToJsonDictionary(withPenLines: penLines)
+        
+        //start a new thread to write data to file
+        DispatchQueue.global().async {
+            
+            try? backgroundImageData.write(to: backgroundURL)
+            try? coverImageData.write(to: coverURL)
+            try? FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)
+            if JSONSerialization.isValidJSONObject(penDic) {
+                guard let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted) else { return }
+                try? penData.write(to: penLinesURL)
+            }
+            
+            DispatchQueue.main.async {
+                
+            }
         }
+        
+
+    }
+    
+    ///Translate the array of SSFLine to the json dictionary object which used to record the pens with json.
+    private func translateToJsonDictionary(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]] {
+        let allDrawingPens = penLines.map { aLine -> [String : Any] in
+            var lineDic: [String : Any] = [:]
+            lineDic["color"] = aLine.color
+            lineDic["width"] = aLine.width
+            lineDic["pointsOfLine"] = aLine.pointsOfLine.map{ aPoint -> [String : Double] in
+                var pointDic: [String : Double] = [:]
+                pointDic["pointX"] = Double(aPoint.point.x)
+                pointDic["pointY"] = Double(aPoint.point.y)
+                pointDic["time"] = aPoint.time ?? 0
+                return pointDic
+            }
+            return lineDic
+        }
+        return ["drawingPens" : allDrawingPens]
     }
 }
