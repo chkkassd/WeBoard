@@ -104,7 +104,7 @@ class SSFRecordViewController: UIViewController {
     ///All points of a line which is drawing
     var pointsOfCurrentLine: [SSFPoint] = []
     
-    ///All elements view which used to congigure background
+    ///All elements view which used to configure background
     var allElements: [SSFElementView] = []
     
     //MARK: Set to landscape
@@ -176,7 +176,11 @@ extension SSFRecordViewController {
     }
     
     fileprivate func endAndSaveRecord() {
-        SSFRecorder.sharedInstance.endAudioRecord()
+        coverImage = SSFScreenShot.screenShot(withView: canvasView)
+        SSFRecorder.sharedInstance.endAndSave(penLines: allRecordingDrawingLines, backgroundImage: backgroundImage!, coverImage: coverImage!) { (isSaved, describition) in
+            SwiftNotice.showNoticeWithText(.success, text: "保存成功", autoClear: true, autoClearTime: 2)
+            self.perform(#selector(self.backButtonPressed), with: nil, afterDelay: 2.0)
+        }
     }
     
     fileprivate func clearAll() {

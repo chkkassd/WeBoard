@@ -16,12 +16,12 @@ let DefaultPenLinesName = "penLines.JSON"
 let DefaultBackgroundImageName = "background.jpg"
 let DefaultCoverImageName = "cover.jpg"
 
+typealias RecordCompletion = (Bool, String?) -> Void
+
 class SSFRecorder {
     static let sharedInstance = SSFRecorder()
     
     public var audioRecoder: AVAudioRecorder?
-    
-    private var startTime: Date?
     
     // MARK: Public API for audio recording
     public func startAudioRecord() {
@@ -63,7 +63,6 @@ class SSFRecorder {
     
         audioRecoder?.prepareToRecord()
         audioRecoder?.record()
-        startTime = Date()
     }
     
     public func endAudioRecord() {
@@ -71,7 +70,6 @@ class SSFRecorder {
         audioRecoder = nil
         try? AVAudioSession.sharedInstance().setActive(false)
         
-        startTime = nil
     }
     
     public func pauseAudioRecord() {
@@ -80,6 +78,12 @@ class SSFRecorder {
     
     public func resumeAudioRecorder() {
         audioRecoder?.record()
+    }
+    
+    ///End recording and save sound and pens.
+    public func endAndSave(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage, completionHandler: @escaping RecordCompletion) {
+        endAudioRecord()
+        saveRecord(penLines: penLines, backgroundImage: backgroundImage, coverImage: coverImage, completionHandler: completionHandler)
     }
     
     public var currentTime: TimeInterval {
@@ -100,7 +104,7 @@ class SSFRecorder {
         return DirectoryPath().creatDirectoryURLInDocument(withDirectoryName: weiBoardPathName)
     }
     
-    private func saveRecord(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage){
+    private func saveRecord(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage, completionHandler: @escaping RecordCompletion) {
         guard let directoryURL = createDirectory() else { return }
         let temporaryAudioURL = URL.init(fileURLWithPath: DirectoryPath().pathOfTemporary()).appendingPathComponent(DefaultAudioName)
         
@@ -129,7 +133,8 @@ class SSFRecorder {
             }
             
             DispatchQueue.main.async {
-                
+                print("Finsh saved")
+                completionHandler(true, nil)
             }
         }
         
