@@ -199,7 +199,7 @@ extension SSFRecordViewController {
         endTimer()
         
         //3.clear view
-        timeLabel.text = "00 : 00"
+        timeLabel.text = "00:00"
         startButton.isSelected = false
     }
     
@@ -215,41 +215,8 @@ extension SSFRecordViewController {
     }
     
     @objc fileprivate func timerFinished(timer: Timer) {
-        print("======\(SSFRecorder.sharedInstance.currentTime)=====")
-        print("\n==============\(SSFRecorder.sharedInstance.isRecording)========")
-        self.timeLabel.text = timeStringForTime(currentTime: SSFRecorder.sharedInstance.currentTime)
+        self.timeLabel.text = SSFRecorder.sharedInstance.currentTime.timeFormatString()
     }
-    
-    fileprivate func timeStringForTime(currentTime: TimeInterval) -> String
-    {
-        var timeString = ""
-        let time = Int(currentTime)
-        if (time < 60) {
-            if (time < 10) {
-                timeString = "00 : 0\(time)"
-            } else {
-                timeString = "00 : \(time)"
-            }
-        } else if (time >= 60) {
-            let minute = Int(time / 60)
-            let second = Int(time % 60)
-            var minuteString = ""
-            var secondString = ""
-            if (minute < 10) {
-                minuteString = "0\(minute)"
-            } else {
-                minuteString = "\(minute)"
-            }
-            if (second < 10) {
-                secondString = "0\(second)"
-            } else {
-                secondString = "\(second)"
-            }
-            timeString = "\(minuteString) : \(secondString)"
-        }
-        return timeString;
-    }
-    
 }
 
 extension SSFRecordViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

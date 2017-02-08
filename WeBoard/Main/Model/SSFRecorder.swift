@@ -11,21 +11,22 @@ import AVFoundation
 import UIKit
 
 let kAudioRecorderSampleRate = 44100.0
-let DefaultAudioName = "sound.pcm"
-let DefaultPenLinesName = "penLines.JSON"
-let DefaultBackgroundImageName = "background.jpg"
-let DefaultCoverImageName = "cover.jpg"
 
 typealias RecordCompletion = (Bool, String?) -> Void
 
-class SSFRecorder {
+class SSFRecorder: RecordPathProtocol {
     static let sharedInstance = SSFRecorder()
     
     public var audioRecoder: AVAudioRecorder?
     
+    private var recordDuration: Double?
+    
+    private var recordUUID: String?
+    
     // MARK: Public API for audio recording
     public func startAudioRecord() {
-        
+        recordDuration = nil
+        recordUUID = nil
         if audioRecoder == nil {
             //1. Select the category and option of AVAudioSession, and then activate the session.
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
@@ -66,10 +67,10 @@ class SSFRecorder {
     }
     
     public func endAudioRecord() {
+        recordDuration = audioRecoder?.currentTime
         audioRecoder?.stop()
         audioRecoder = nil
         try? AVAudioSession.sharedInstance().setActive(false)
-        
     }
     
     public func pauseAudioRecord() {
@@ -98,21 +99,16 @@ class SSFRecorder {
     
     // MARK: Save operation
     
-    private func createDirectory() -> URL? {
-        let uuid = NSUUID().uuidString
-        let weiBoardPathName = "\(uuid)_WeiBoard"
-        return DirectoryPath().creatDirectoryURLInDocument(withDirectoryName: weiBoardPathName)
-    }
-    
     private func saveRecord(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage, completionHandler: @escaping RecordCompletion) {
-        guard let directoryURL = createDirectory() else { return }
-        let temporaryAudioURL = URL.init(fileURLWithPath: DirectoryPath().pathOfTemporary()).appendingPathComponent(DefaultAudioName)
+        recordUUID = NSUUID().uuidString
         
+        let temporaryAudioURL = URLOfTemporaryAudio()
         //path of saved
-        let destinationAudioURL = directoryURL.appendingPathComponent(DefaultAudioName)
-        let penLinesURL = directoryURL.appendingPathComponent(DefaultPenLinesName)
-        let backgroundURL = directoryURL.appendingPathComponent(DefaultBackgroundImageName)
-        let coverURL = directoryURL.appendingPathComponent(DefaultCoverImageName)
+        let destinationAudioURL = URLOfDestinationAudio(uuid: recordUUID!)
+        let penLinesURL = URLOfPenlines(uuid: recordUUID!)
+        let backgroundURL = URLOfBackgroundImage(uuid: recordUUID!)
+        let coverURL = URLOfCoverImage(uuid: recordUUID!)
+        let archivedPath = pathOfArchivedWeBoard()
 
         //image data
         guard let backgroundImageData = UIImageJPEGRepresentation(backgroundImage, 1.0) else { return }
@@ -121,15 +117,28 @@ class SSFRecorder {
         //JSON object of pen lines
         let penDic = translateToJsonDictionary(withPenLines: penLines)
         
-        //start a new thread to write data to file
+        //save archived objcet
+        let weBoard = SSFWeBoard(uuidString: (recordUUID !! "Crash reason: recorUUID is nil"), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.absoluteString)
+        
+        //start a new thread to write data to file and save archived object
         DispatchQueue.global().async {
             
+            //1.save penlines,picture,sound
             try? backgroundImageData.write(to: backgroundURL)
             try? coverImageData.write(to: coverURL)
             try? FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)
             if JSONSerialization.isValidJSONObject(penDic) {
                 guard let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted) else { return }
                 try? penData.write(to: penLinesURL)
+            }
+            
+            //2.save archived weboard to show list in the fist collection view
+            if var weBoards = NSKeyedUnarchiver.unarchiveObject(withFile: archivedPath) as? Array<SSFWeBoard> {
+                weBoards.append(weBoard)
+                NSKeyedArchiver.archiveRootObject(weBoards, toFile: archivedPath)
+            } else {
+                let arr: [SSFWeBoard] = [weBoard]
+                NSKeyedArchiver.archiveRootObject(arr, toFile: archivedPath)
             }
             
             DispatchQueue.main.async {

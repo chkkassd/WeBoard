@@ -8,9 +8,15 @@
 
 import UIKit
 
-class SSFMainCollectionViewController: UICollectionViewController {
+class SSFMainCollectionViewController: UICollectionViewController ,RecordPathProtocol {
 
-    var allData = Array(repeating: 1, count: 10)
+    var allData: [SSFWeBoard]? {
+        let path = pathOfArchivedWeBoard()
+        guard let arr = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? Array<SSFWeBoard> else {
+            return nil
+        }
+        return arr
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,23 +30,35 @@ class SSFMainCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return allData.count
+        guard let all = allData else {
+            return 0
+        }
+        return all.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let reuseIdentifier = "MainCollectionViewCell"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MainCollectionViewCell
-    
+        
+        guard let allWeBoards = allData else { return cell }
+        let weBoard = allWeBoards[indexPath.row]
         // Configure the cell
-    
+        cell.titleLabel.text = weBoard.title
+        cell.timeLabel.text = weBoard.time.timeFormatString()
+        if FileManager.default.fileExists(atPath: weBoard.coverImagePath) {
+            cell.coverImageView.image = UIImage(contentsOfFile: weBoard.coverImagePath)
+        } else {
+            print("cover image path doesn't exist")
+        }
         return cell
     }
 
     // MARK: UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let tem = allData[sourceIndexPath.row]
-        allData.remove(at: sourceIndexPath.row)
-        allData.insert(tem, at: destinationIndexPath.row)
+        guard var allWeBoards = allData else { return }
+        let tem = allWeBoards[sourceIndexPath.row]
+        allWeBoards.remove(at: sourceIndexPath.row)
+        allWeBoards.insert(tem, at: destinationIndexPath.row)
     }
 }

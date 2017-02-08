@@ -9,5 +9,7 @@
 import UIKit
 
 class MainCollectionViewCell: UICollectionViewCell {
-    
+    @IBOutlet var coverImageView: UIImageView!
+    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
 }

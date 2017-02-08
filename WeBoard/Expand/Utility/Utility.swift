@@ -178,6 +178,38 @@ extension Sequence where Iterator.Element: Hashable{
     }
 }
 
+extension Double {
+    ///This fuction acts on let a double value translate to a string with style of "00 : 00"
+    func timeFormatString() -> String
+    {
+        var timeString = ""
+        let time = Int(self)
+        if (time < 60) {
+            if (time < 10) {
+                timeString = "00:0\(time)"
+            } else {
+                timeString = "00:\(time)"
+            }
+        } else if (time >= 60) {
+            let minute = Int(time / 60)
+            let second = Int(time % 60)
+            var minuteString = ""
+            var secondString = ""
+            if (minute < 10) {
+                minuteString = "0\(minute)"
+            } else {
+                minuteString = "\(minute)"
+            }
+            if (second < 10) {
+                secondString = "0\(second)"
+            } else {
+                secondString = "\(second)"
+            }
+            timeString = "\(minuteString):\(secondString)"
+        }
+        return timeString;
+    }
+}
 
 //MARK:- CustomOperator
 
