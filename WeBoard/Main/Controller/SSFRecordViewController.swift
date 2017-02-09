@@ -8,6 +8,8 @@
 
 import UIKit
 
+let DefaultUpdateWeBoardList = "DefaultUpdateWeBoardList"
+
 class SSFRecordViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -179,6 +181,7 @@ extension SSFRecordViewController {
         coverImage = SSFScreenShot.screenShot(withView: canvasView)
         SSFRecorder.sharedInstance.endAndSave(penLines: allRecordingDrawingLines, backgroundImage: backgroundImage!, coverImage: coverImage!) { (isSaved, describition) in
             SwiftNotice.showNoticeWithText(.success, text: "保存成功", autoClear: true, autoClearTime: 2)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: DefaultUpdateWeBoardList), object: nil)
             self.perform(#selector(self.backButtonPressed), with: nil, afterDelay: 2.0)
         }
     }

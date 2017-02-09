@@ -11,6 +11,7 @@ import UIKit
 class SSFMainCollectionViewController: UICollectionViewController ,RecordPathProtocol {
 
     var allData: [SSFWeBoard]? {
+        
         let path = pathOfArchivedWeBoard()
         guard let arr = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? Array<SSFWeBoard> else {
             return nil
@@ -20,6 +21,16 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateList), name: NSNotification.Name(rawValue: DefaultUpdateWeBoardList), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: Update the list view
+    @objc func updateList() {
+        self.collectionView?.reloadData()
     }
     
     // MARK: UICollectionViewDataSource
@@ -48,7 +59,6 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         if FileManager.default.fileExists(atPath: weBoard.coverImagePath) {
             cell.coverImageView.image = UIImage(contentsOfFile: weBoard.coverImagePath)
         } else {
-            print("cover image path doesn't exist")
         }
         return cell
     }

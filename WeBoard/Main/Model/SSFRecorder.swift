@@ -109,7 +109,7 @@ class SSFRecorder: RecordPathProtocol {
         let backgroundURL = URLOfBackgroundImage(uuid: recordUUID!)
         let coverURL = URLOfCoverImage(uuid: recordUUID!)
         let archivedPath = pathOfArchivedWeBoard()
-
+        
         //image data
         guard let backgroundImageData = UIImageJPEGRepresentation(backgroundImage, 1.0) else { return }
         guard let coverImageData = UIImageJPEGRepresentation(coverImage, 1.0) else { return }
@@ -118,7 +118,7 @@ class SSFRecorder: RecordPathProtocol {
         let penDic = translateToJsonDictionary(withPenLines: penLines)
         
         //save archived objcet
-        let weBoard = SSFWeBoard(uuidString: (recordUUID !! "Crash reason: recorUUID is nil"), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.absoluteString)
+        let weBoard = SSFWeBoard(uuidString: (recordUUID !! "Crash reason: recorUUID is nil"), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.absoluteString.components(separatedBy: "file://").last!)
         
         //start a new thread to write data to file and save archived object
         DispatchQueue.global().async {
@@ -154,7 +154,7 @@ class SSFRecorder: RecordPathProtocol {
     private func translateToJsonDictionary(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]] {
         let allDrawingPens = penLines.map { aLine -> [String : Any] in
             var lineDic: [String : Any] = [:]
-            lineDic["color"] = aLine.color
+            lineDic["color"] = "white"//aLine.color
             lineDic["width"] = aLine.width
             lineDic["pointsOfLine"] = aLine.pointsOfLine.map{ aPoint -> [String : Double] in
                 var pointDic: [String : Double] = [:]
