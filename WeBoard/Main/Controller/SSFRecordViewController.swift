@@ -244,19 +244,19 @@ extension SSFRecordViewController: SSFBackgroundCollectionViewControllerDelegate
 }
 
 extension SSFRecordViewController: SSFCanvasViewDelegate {
-    func canvasView(touchBeganAt point: CGPoint) {
+    func canvasView(touchBeganAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double, isStartOfLine isStart: Bool) {
         pointsOfCurrentLine = []
-        let ssfPoint = SSFPoint(point: point, time: SSFRecorder.sharedInstance.currentTime)
+        let ssfPoint = SSFPoint(point: point, time: SSFRecorder.sharedInstance.currentTime, color: color, width: width, isStartOfLine: isStart)
         pointsOfCurrentLine.append(ssfPoint)
     }
     
-    func canvasView(touchMoveAt point: CGPoint) {
-        let ssfPoint = SSFPoint(point: point, time: SSFRecorder.sharedInstance.currentTime)
+    func canvasView(touchMoveAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double, isStartOfLine isStart: Bool) {
+        let ssfPoint = SSFPoint(point: point, time: SSFRecorder.sharedInstance.currentTime, color: color, width: width, isStartOfLine: isStart)
         pointsOfCurrentLine.append(ssfPoint)
     }
     
-    func canvasView(touchEndAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double) {
-        let ssfPoint = SSFPoint(point: point, time: SSFRecorder.sharedInstance.currentTime)
+    func canvasView(touchEndAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double, isStartOfLine isStart: Bool) {
+        let ssfPoint = SSFPoint(point: point, time: SSFRecorder.sharedInstance.currentTime, color: color, width: width, isStartOfLine: isStart)
         pointsOfCurrentLine.append(ssfPoint)
         let currentLine = SSFLine(pointsOfLine: pointsOfCurrentLine, color: color, width: width)
         

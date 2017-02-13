@@ -211,6 +211,13 @@ extension Double {
     }
 }
 
+extension URL {
+    ///Let a file url translate to a path string
+    var pathString: String? {
+        return self.absoluteString.components(separatedBy: "file://").last
+    }
+}
+
 //MARK:- CustomOperator
 
 infix operator !!

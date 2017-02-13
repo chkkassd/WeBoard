@@ -121,23 +121,23 @@ class SSFCanvasView: UIView {
     private func touchBegan(atPoint point: CGPoint) {
         previousPoint = point
         drawToCache(lastPoint: previousPoint, newPoint: point)
-        delegate?.canvasView(touchBeganAt: point)
+        delegate?.canvasView(touchBeganAt: point, withLineColor: brushColor, withLineWidth: brushWidth, isStartOfLine: true)
     }
     
     private func touchMove(toPoint point: CGPoint) {
         drawToCache(lastPoint: previousPoint, newPoint: point)
         previousPoint = point
-        delegate?.canvasView(touchMoveAt: point)
+        delegate?.canvasView(touchMoveAt: point, withLineColor: brushColor, withLineWidth: brushWidth, isStartOfLine: false)
     }
     
     private func touchEnd(atPoint point: CGPoint) {
         previousPoint = point
-        delegate?.canvasView(touchEndAt: point, withLineColor: brushColor, withLineWidth: brushWidth)
+        delegate?.canvasView(touchEndAt: point, withLineColor: brushColor, withLineWidth: brushWidth, isStartOfLine: false)
     }
 }
 
 protocol SSFCanvasViewDelegate: class {
-    func canvasView(touchBeganAt point: CGPoint)
-    func canvasView(touchMoveAt point: CGPoint)
-    func canvasView(touchEndAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double)
+    func canvasView(touchBeganAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double, isStartOfLine isStart: Bool)
+    func canvasView(touchMoveAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double, isStartOfLine isStart: Bool)
+    func canvasView(touchEndAt point: CGPoint, withLineColor color: UIColor, withLineWidth width: Double, isStartOfLine isStart: Bool)
 }

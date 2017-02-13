@@ -58,6 +58,7 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         cell.timeLabel.text = weBoard.time.timeFormatString()
         if FileManager.default.fileExists(atPath: weBoard.coverImagePath) {
             cell.coverImageView.image = UIImage(contentsOfFile: weBoard.coverImagePath)
+            print("=======\(weBoard.coverImagePath)")
         } else {
         }
         return cell

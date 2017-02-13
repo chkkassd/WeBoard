@@ -14,7 +14,7 @@ let kAudioRecorderSampleRate = 44100.0
 
 typealias RecordCompletion = (Bool, String?) -> Void
 
-class SSFRecorder: RecordPathProtocol {
+class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
     static let sharedInstance = SSFRecorder()
     
     public var audioRecoder: AVAudioRecorder?
@@ -115,10 +115,10 @@ class SSFRecorder: RecordPathProtocol {
         guard let coverImageData = UIImageJPEGRepresentation(coverImage, 1.0) else { return }
         
         //JSON object of pen lines
-        let penDic = translateToJsonDictionary(withPenLines: penLines)
+        let penDic = translateToJsonDictionaryPointStyle(withPenLines: penLines)
         
         //save archived objcet
-        let weBoard = SSFWeBoard(directoryURL: createDirectory(uuid: recordUUID!), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.absoluteString.components(separatedBy: "file://").last!)
+        let weBoard = SSFWeBoard(directoryURL: createDirectory(uuid: recordUUID!), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.pathString!)
         
         //start a new thread to write data to file and save archived object
         DispatchQueue.global().async {
@@ -150,21 +150,42 @@ class SSFRecorder: RecordPathProtocol {
 
     }
     
-    ///Translate the array of SSFLine to the json dictionary object which used to record the pens with json.
-    private func translateToJsonDictionary(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]] {
+    ///Translate the array of SSFLine to the json dictionary object which used to record the pens with json.每笔作为数组元素
+    private func translateToJsonDictionaryPenLineStyle(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]] {
         let allDrawingPens = penLines.map { aLine -> [String : Any] in
             var lineDic: [String : Any] = [:]
-            lineDic["color"] = "white"//aLine.color
+            lineDic["color"] = colorToColorString(withColor: aLine.color)
             lineDic["width"] = aLine.width
-            lineDic["pointsOfLine"] = aLine.pointsOfLine.map{ aPoint -> [String : Double] in
-                var pointDic: [String : Double] = [:]
+            lineDic["pointsOfLine"] = aLine.pointsOfLine.map{ aPoint -> [String : Any] in
+                var pointDic: [String : Any] = [:]
                 pointDic["pointX"] = Double(aPoint.point.x)
                 pointDic["pointY"] = Double(aPoint.point.y)
                 pointDic["time"] = aPoint.time ?? 0
+                pointDic["color"] = colorToColorString(withColor: aPoint.color)
+                pointDic["width"] = aPoint.width
+                pointDic["isStartOfLine"] = aPoint.isStartOfLine
                 return pointDic
             }
             return lineDic
         }
-        return ["drawingPens" : allDrawingPens]
+        return ["drawingPenLines" : allDrawingPens]
+    }
+    
+    ///Translate the array of SSFLine to the json dictionary object which used to record the pens with json.每点作为数组元素
+    private func translateToJsonDictionaryPointStyle(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]] {
+        let allDrawingPoints = penLines.flatMap { aLine -> [[String : Any]] in
+            let points = aLine.pointsOfLine.map{ aPoint -> [String : Any] in
+                var pointDic: [String : Any] = [:]
+                pointDic["pointX"] = Double(aPoint.point.x)
+                pointDic["pointY"] = Double(aPoint.point.y)
+                pointDic["time"] = aPoint.time ?? 0
+                pointDic["color"] = colorToColorString(withColor: aPoint.color)
+                pointDic["width"] = aPoint.width
+                pointDic["isStartOfLine"] = aPoint.isStartOfLine
+                return pointDic
+            }
+            return points
+        }
+        return ["drawingPoints" : allDrawingPoints]
     }
 }

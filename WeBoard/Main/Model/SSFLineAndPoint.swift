@@ -12,6 +12,9 @@ import UIKit
 struct SSFPoint {
     var point: CGPoint
     var time: TimeInterval?
+    var color: UIColor
+    var width: Double
+    var isStartOfLine: Bool
 }
 
 struct SSFLine {
