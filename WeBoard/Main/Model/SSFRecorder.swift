@@ -118,7 +118,7 @@ class SSFRecorder: RecordPathProtocol {
         let penDic = translateToJsonDictionary(withPenLines: penLines)
         
         //save archived objcet
-        let weBoard = SSFWeBoard(uuidString: (recordUUID !! "Crash reason: recorUUID is nil"), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.absoluteString.components(separatedBy: "file://").last!)
+        let weBoard = SSFWeBoard(directoryURL: createDirectory(uuid: recordUUID!), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.absoluteString.components(separatedBy: "file://").last!)
         
         //start a new thread to write data to file and save archived object
         DispatchQueue.global().async {

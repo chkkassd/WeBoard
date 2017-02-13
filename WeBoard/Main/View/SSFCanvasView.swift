@@ -36,6 +36,8 @@ class SSFCanvasView: UIView {
         self.setNeedsDisplay()
     }
     
+    // MARK: Private methods to draw
+    
     ///Call this function to draw point to the bitmapContext firstly,and then draw the image of bitmapContext to the current context.
     private func drawToCache(lastPoint: CGPoint, newPoint: CGPoint) {
         cacheContext?.setLineWidth(CGFloat(brushWidth))
