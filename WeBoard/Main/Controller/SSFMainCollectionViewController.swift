@@ -19,6 +19,8 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         return arr
     }
     
+    var selectedWeboard: SSFWeBoard?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateList), name: NSNotification.Name(rawValue: DefaultUpdateWeBoardList), object: nil)
@@ -26,6 +28,16 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    // MARK: segue
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifierString = segue.identifier else { return }
+        if identifierString == "showPlayerController" {
+            let vc = segue.destination as! SSFPlayerViewController
+            vc.weBoard = selectedWeboard
+        }
     }
     
     // MARK: Update the list view
@@ -71,5 +83,11 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         let tem = allWeBoards[sourceIndexPath.row]
         allWeBoards.remove(at: sourceIndexPath.row)
         allWeBoards.insert(tem, at: destinationIndexPath.row)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        selectedWeboard = allData?[indexPath.row]
+        self.performSegue(withIdentifier: "showPlayerController", sender: self)
     }
 }

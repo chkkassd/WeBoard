@@ -29,7 +29,7 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
         recordUUID = nil
         if audioRecoder == nil {
             //1. Select the category and option of AVAudioSession, and then activate the session.
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryRecord)
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             try? AVAudioSession.sharedInstance().setActive(true)
             AVAudioSession.sharedInstance().requestRecordPermission () {
                 [unowned self] allowed in
@@ -45,7 +45,7 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
             //2. Set the configuraton of record
             var recordSetting: [String : Any] = Dictionary()
             //录音格式
-            recordSetting[AVFormatIDKey] = kAudioFormatLinearPCM
+            recordSetting[AVFormatIDKey] = kAudioFormatMPEG4AAC
             //设置录音采样率(Hz) 如：AVSampleRateKey==8000/44100/96000（影响音频的质量)
             recordSetting[AVSampleRateKey] = kAudioRecorderSampleRate
             //录音通道数  1 或 2

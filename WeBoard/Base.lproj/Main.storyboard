@@ -92,7 +92,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="Jmd-kw-miE" kind="presentation" id="lCQ-mk-pj7"/>
+                        <segue destination="Jmd-kw-miE" kind="presentation" identifier="showPlayerController" id="lCQ-mk-pj7"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJd-7M-slU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -331,7 +331,7 @@
                                             <action selector="startButtonPressed:" destination="Jmd-kw-miE" eventType="touchUpInside" id="ps6-Qh-HyA"/>
                                         </connections>
                                     </button>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oEu-0w-E4y">
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oEu-0w-E4y">
                                         <rect key="frame" x="51" y="14" width="531" height="2"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvG-M2-0NV">

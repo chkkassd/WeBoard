@@ -13,9 +13,13 @@ import UIKit
 class SSFPlayer: NSObject, ColorDescriptionPotocol {
     static let sharedInstance = SSFPlayer()
     
-    private var audioPlayer: AVAudioPlayer?
+    public var audioPlayer: AVAudioPlayer?
     
     public weak var canvasView: SSFCanvasView?
+    
+    public weak var delegate: SSFPlayerDelegate?
+    
+    public var isPlaying: Bool = false
     
     private var allPoints: [SSFPoint]?//后面做快进快退有用
     
@@ -28,6 +32,7 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     //MARK: palyer control
     
     func start(recordURL: URL) {
+        isPlaying = true
         //1.clear player
         clearAll()
         //2.Prepare to play,inluding setting up the background image,configure pen lines array
@@ -39,11 +44,13 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     }
     
     func pause() {
+        isPlaying = false
         audioPlayer?.pause()
         endDisplayLink()
     }
     
     func resume() {
+        isPlaying = true
         audioPlayer?.play()
         startDisplayLink()
     }
@@ -72,6 +79,7 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     }
     
     private func playAudio(recordURL: URL) {
+        try? AVAudioSession.sharedInstance().setActive(true)
         let audioURL = recordURL.appendingPathComponent(DefaultAudioName)
         if audioPlayer == nil {
             audioPlayer = try? AVAudioPlayer(contentsOf: audioURL)
@@ -83,15 +91,17 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     }
     
     private func drawing(withPoints points: [SSFPoint]) {
-        
+        canvasView?.drawLines(withPoints: points)
     }
     
-    private func clearAll() {
+    fileprivate func clearAll() {
+        try? AVAudioSession.sharedInstance().setActive(false)
         audioPlayer = nil
         allPoints = nil
         restPoints = nil
         previousTime = 0.0
         endDisplayLink()
+        isPlaying = false
     }
     
     //MARK: NSDisplayLink
@@ -117,5 +127,18 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
 }
 
 extension SSFPlayer: AVAudioPlayerDelegate {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        clearAll()
+        delegate?.ssfPlayerDidFinishPlayering(self)
+    }
     
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        clearAll()
+        delegate?.ssfPlayerDecodeErrorDidOccur(self)
+    }
+}
+
+protocol SSFPlayerDelegate: class {
+    func ssfPlayerDidFinishPlayering(_ player: SSFPlayer)
+    func ssfPlayerDecodeErrorDidOccur(_ player: SSFPlayer)
 }

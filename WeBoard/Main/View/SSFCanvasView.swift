@@ -36,6 +36,41 @@ class SSFCanvasView: UIView {
         self.setNeedsDisplay()
     }
     
+    ///This function acts on drawing with points in playing.
+    public func drawLines(withPoints points: [SSFPoint]) {
+        if points.count == 0 { return }
+        guard let firstPoint = points.first else { return }
+        var totalRect = CGRect(x: Double(firstPoint.point.x) - brushWidth/2.0, y: Double(firstPoint.point.y) - brushWidth/2.0, width: brushWidth, height: brushWidth)
+        
+        print("\n=====pointsCount:\(points.count)")
+        for (index, ssfPoint) in points.enumerated() {
+            print("\n====index:\(index)")
+            let rect = CGRect(x: Double(ssfPoint.point.x) - brushWidth/2.0, y: Double(ssfPoint.point.y) - brushWidth/2.0, width: brushWidth, height: brushWidth)
+            totalRect = totalRect.union(rect)
+            
+            brushWidth = ssfPoint.width
+            brushColor = ssfPoint.color
+            if ssfPoint.isStartOfLine {
+                cacheContext?.setLineWidth(CGFloat(brushWidth))
+                cacheContext?.setStrokeColor(brushColor.cgColor)
+                cacheContext?.move(to: ssfPoint.point)
+            } else {
+                let lastPoint: SSFPoint
+                if index == 0 {
+                    lastPoint = points[0]
+                } else {
+                    lastPoint = points[index - 1]
+                }
+                cacheContext?.setLineWidth(CGFloat(brushWidth))
+                cacheContext?.setStrokeColor(brushColor.cgColor)
+                cacheContext?.move(to: lastPoint.point)
+                cacheContext?.addLine(to: ssfPoint.point)
+            }
+        }
+        cacheContext?.strokePath()
+        self.setNeedsDisplay(totalRect)
+    }
+    
     // MARK: Private methods to draw
     
     ///Call this function to draw point to the bitmapContext firstly,and then draw the image of bitmapContext to the current context.

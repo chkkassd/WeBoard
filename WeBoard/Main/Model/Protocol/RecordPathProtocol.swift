@@ -8,7 +8,7 @@
 
 import Foundation
 
-let DefaultAudioName = "sound.pcm"
+let DefaultAudioName = "sound.m4a"
 let DefaultPenLinesName = "penLines.JSON"
 let DefaultBackgroundImageName = "background.jpg"
 let DefaultCoverImageName = "cover.jpg"
