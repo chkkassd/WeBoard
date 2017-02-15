@@ -11,6 +11,11 @@ import UIKit
 let DefaultLineColor = UIColor.black
 let DefaultLineWidth = 5.0
 
+enum CanvasViewModel {
+    case paintModel//绘画模式
+    case playModel//播放模式
+}
+
 class SSFCanvasView: UIView {
 
     override func draw(_ rect: CGRect) {
@@ -19,7 +24,19 @@ class SSFCanvasView: UIView {
         context.draw(cacheImage, in: self.bounds)
     }
 
-    //MARK: Public methods to draw
+    //MARK: Public API - Property
+    
+    ///The line width of pain
+    public var brushWidth = DefaultLineWidth
+    
+    ///The line color of pain
+    public var brushColor = DefaultLineColor
+    
+    weak var delegate: SSFCanvasViewDelegate?
+    
+    public var model: CanvasViewModel = .paintModel//Default is paint model,u can change it with uself
+    
+    //MARK: Public API - Draw
     
     public func drawBackground(withColor color : UIColor) {
         cacheContext?.setFillColor(color.cgColor)
@@ -41,9 +58,7 @@ class SSFCanvasView: UIView {
         if points.count == 0 { return }
         var totalRect = CGRect(x: Double(lastPoint.point.x) - brushWidth/2.0, y: Double(lastPoint.point.y) - brushWidth/2.0, width: brushWidth, height: brushWidth)
         
-        print("\n=====pointsCount:\(points.count)")
         for (index, ssfPoint) in points.enumerated() {
-            print("\n====index:\(index)")
             let rect = CGRect(x: Double(ssfPoint.point.x) - brushWidth/2.0, y: Double(ssfPoint.point.y) - brushWidth/2.0, width: brushWidth, height: brushWidth)
             totalRect = totalRect.union(rect)
             
@@ -87,7 +102,7 @@ class SSFCanvasView: UIView {
         self.setNeedsDisplay(rectOfLastPoint.union(rectOfNewPoint))
     }
     
-    //MARK: Property
+    //MARK: Private Property
     
     ///Creat the bitmapContext which is used to offscreen drawing.
     private lazy var cacheContext: CGContext? = {
@@ -116,35 +131,31 @@ class SSFCanvasView: UIView {
     
     private var previousPoint: CGPoint!
     
-    ///The line width of pain
-    public var brushWidth = DefaultLineWidth
-    
-    ///The line color of pain
-    public var brushColor = DefaultLineColor
-    
-    weak var delegate: SSFCanvasViewDelegate?
-    
     //MARK: Touch behavies
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard self.model == .paintModel else { return }
         guard let touch = touches.first else { return }
         let newPoint = touch.location(in: self)
         touchBegan(atPoint: newPoint)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard self.model == .paintModel else { return }
         guard let touch = touches.first else { return }
         let newPoint = touch.location(in: self)
         touchMove(toPoint: newPoint)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard self.model == .paintModel else { return }
         guard let touch = touches.first else { return }
         let newPoint = touch.location(in: self)
         touchEnd(atPoint: newPoint)
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard self.model == .paintModel else { return }
         guard let touch = touches.first else { return }
         let newPoint = touch.location(in: self)
         touchEnd(atPoint: newPoint)

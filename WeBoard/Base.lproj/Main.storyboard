@@ -13,42 +13,42 @@
         <scene sceneID="QIt-SL-6dV">
             <objects>
                 <collectionViewController id="ZDb-AK-S8i" customClass="SSFMainCollectionViewController" customModule="WeBoard" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="yvL-OM-yeT">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="yvL-OM-yeT">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uN7-DZ-lJG">
-                            <size key="itemSize" width="140" height="79"/>
+                            <size key="itemSize" width="150" height="84.599999999999994"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MainCollectionViewCell" id="i7Q-Jb-bBQ" customClass="MainCollectionViewCell" customModule="WeBoard" customModuleProvider="target">
-                                <rect key="frame" x="10" y="10" width="140" height="79"/>
+                                <rect key="frame" x="10" y="10" width="150" height="84.599999999999994"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="140" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="84.599999999999994"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OXX-94-nCo" userLabel="cover image">
-                                            <rect key="frame" x="0.0" y="0.0" width="140" height="79"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="84.5"/>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start" translatesAutoresizingMaskIntoConstraints="NO" id="Pzc-21-DjF">
-                                            <rect key="frame" x="45" y="14" width="50" height="50"/>
+                                            <rect key="frame" x="50" y="17.5" width="50" height="50"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="IFE-0g-k7G"/>
                                                 <constraint firstAttribute="height" constant="50" id="Oae-xE-MMp"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7IQ-s8-KBX" userLabel="time label">
-                                            <rect key="frame" x="4" y="79" width="0.0" height="0.0"/>
+                                            <rect key="frame" x="4" y="84.5" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oMb-bf-VJa" userLabel="title label">
-                                            <rect key="frame" x="140" y="79" width="0.0" height="0.0"/>
+                                            <rect key="frame" x="150" y="84.5" width="0.0" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                                     <constraint firstAttribute="bottom" secondItem="oMb-bf-VJa" secondAttribute="bottom" id="mck-ac-kwt"/>
                                     <constraint firstAttribute="trailing" secondItem="OXX-94-nCo" secondAttribute="trailing" id="vrG-ts-VtQ"/>
                                 </constraints>
-                                <size key="customSize" width="140" height="79"/>
+                                <size key="customSize" width="150" height="84.599999999999994"/>
                                 <connections>
                                     <outlet property="coverImageView" destination="OXX-94-nCo" id="rOJ-3W-W1a"/>
                                     <outlet property="timeLabel" destination="7IQ-s8-KBX" id="PmA-Pi-mPp"/>

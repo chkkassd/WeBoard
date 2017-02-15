@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 //MARK:- Extension
 
@@ -215,6 +216,19 @@ extension URL {
     ///Let a file url translate to a path string
     var pathString: String? {
         return self.absoluteString.components(separatedBy: "file://").last
+    }
+}
+
+extension UIImage {
+    
+    ///Scale a big image to a specifial rect small image
+    ///compressionQuality: 压缩质量，影响存储大小和图片显示质量
+    func scaledImage(_ rect: CGRect, _ compressionQuality: CGFloat) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.main.scale)
+        self.draw(in: rect)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+        guard let imageData = UIImageJPEGRepresentation(image, compressionQuality) else { return nil }
+        return UIImage(data: imageData)
     }
 }
 

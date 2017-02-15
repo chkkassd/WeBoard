@@ -17,13 +17,26 @@ typealias RecordCompletion = (Bool, String?) -> Void
 class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
     static let sharedInstance = SSFRecorder()
     
-    public var audioRecoder: AVAudioRecorder?
-    
     private var recordDuration: Double?
     
     private var recordUUID: String?
     
-    // MARK: Public API for audio recording
+    // MARK: Public API - Record property
+    
+    public var audioRecoder: AVAudioRecorder?
+    
+    public var currentTime: TimeInterval {
+        guard let recorder = audioRecoder else { return 0 }
+        return recorder.currentTime
+    }
+    
+    public var isRecording: Bool {
+        guard let recorder = audioRecoder else { return false }
+        return recorder.isRecording
+    }
+    
+    // MARK: Public API - Audio recording control
+    
     public func startAudioRecord() {
         recordDuration = nil
         recordUUID = nil
@@ -85,16 +98,6 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
     public func endAndSave(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage, completionHandler: @escaping RecordCompletion) {
         endAudioRecord()
         saveRecord(penLines: penLines, backgroundImage: backgroundImage, coverImage: coverImage, completionHandler: completionHandler)
-    }
-    
-    public var currentTime: TimeInterval {
-        guard let recorder = audioRecoder else { return 0 }
-        return recorder.currentTime
-    }
-    
-    public var isRecording: Bool {
-        guard let recorder = audioRecoder else { return false }
-        return recorder.isRecording
     }
     
     // MARK: Save operation

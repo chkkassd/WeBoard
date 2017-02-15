@@ -178,12 +178,19 @@ extension SSFRecordViewController {
     }
     
     fileprivate func endAndSaveRecord() {
-        coverImage = SSFScreenShot.screenShot(withView: canvasView)
+        coverImage = getScaledCoverImage()
         SSFRecorder.sharedInstance.endAndSave(penLines: allRecordingDrawingLines, backgroundImage: backgroundImage!, coverImage: coverImage!) { (isSaved, describition) in
             SwiftNotice.showNoticeWithText(.success, text: "保存成功", autoClear: true, autoClearTime: 2)
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: DefaultUpdateWeBoardList), object: nil)
             self.perform(#selector(self.backButtonPressed), with: nil, afterDelay: 2.0)
         }
+    }
+    
+    func getScaledCoverImage() -> UIImage? {
+        guard let image = SSFScreenShot.screenShot(withView: canvasView) else { return nil }
+        let ratio = image.size.height / image.size.width
+        let scaledRect = CGRect(x: 0, y: 0, width: 100.0, height: 100.0 * ratio)
+        return image.scaledImage(scaledRect, 0.8)
     }
     
     fileprivate func clearAll() {

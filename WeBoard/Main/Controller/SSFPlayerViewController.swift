@@ -15,11 +15,17 @@ class SSFPlayerViewController: UIViewController {
         setUpPlayer()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startButtonPressed(startButton)
+    }
+    
     //MARK: Methods
     
     ///Set up the player
     
     func setUpPlayer() {
+        self.canvasView.model = .playModel
         SSFPlayer.sharedInstance.canvasView = self.canvasView
         SSFPlayer.sharedInstance.delegate = self
     }
@@ -46,7 +52,6 @@ class SSFPlayerViewController: UIViewController {
     //MARK: Action
     @IBAction func startButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        
         if sender.isSelected, !SSFPlayer.sharedInstance.isPlaying, SSFPlayer.sharedInstance.audioPlayer == nil {
             startPlay()
         } else if !sender.isSelected, SSFPlayer.sharedInstance.isPlaying {
@@ -91,7 +96,6 @@ extension SSFPlayerViewController {
     }
     
     @objc fileprivate func refreshTimer() {
-        print("\n======currentTime:\(SSFPlayer.sharedInstance.audioPlayer?.currentTime)")
         guard let currentTime = SSFPlayer.sharedInstance.audioPlayer?.currentTime else { return }
         guard let duration = SSFPlayer.sharedInstance.audioPlayer?.duration else { return }
         timeLabel.text = currentTime.timeFormatString()

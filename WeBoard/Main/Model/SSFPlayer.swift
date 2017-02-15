@@ -13,14 +13,6 @@ import UIKit
 class SSFPlayer: NSObject, ColorDescriptionPotocol {
     static let sharedInstance = SSFPlayer()
     
-    public var audioPlayer: AVAudioPlayer?
-    
-    public weak var canvasView: SSFCanvasView?
-    
-    public weak var delegate: SSFPlayerDelegate?
-    
-    public var isPlaying: Bool = false
-    
     private var allPoints: [SSFPoint]?//后面做快进快退有用
     
     private var restPoints: [SSFPoint]?
@@ -31,10 +23,22 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     
     private var priviousPoint: SSFPoint?
     
-    //MARK: palyer control
+    //MARK: PublicApi-Palyer property
+    
+    public var audioPlayer: AVAudioPlayer?
+    
+    public weak var canvasView: SSFCanvasView?
+    
+    public weak var delegate: SSFPlayerDelegate?
+    
+    public var isPlaying: Bool {
+        guard let player = audioPlayer else { return false }
+        return player.isPlaying
+    }
+
+    //MARK: PublicApi-Palyer control
     
     func start(recordURL: URL) {
-        isPlaying = true
         //1.clear player
         clearAll()
         //2.Prepare to play,inluding setting up the background image,configure pen lines array
@@ -46,13 +50,11 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     }
     
     func pause() {
-        isPlaying = false
         audioPlayer?.pause()
         endDisplayLink()
     }
     
     func resume() {
-        isPlaying = true
         audioPlayer?.play()
         startDisplayLink()
     }
@@ -79,7 +81,6 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
         allPoints = configureAllPoints(penLinesURL: penLinesURL)
         restPoints = allPoints
         priviousPoint = allPoints?.first
-        print("\n=====allpoints:\(allPoints?.count)")
     }
     
     private func playAudio(recordURL: URL) {
@@ -105,7 +106,6 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
         restPoints = nil
         previousTime = 0.0
         endDisplayLink()
-        isPlaying = false
         priviousPoint = nil
     }
     
@@ -131,7 +131,6 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
                 priviousPoint = pointsToDraw.last
             }
         }
-        print("\n======restPoints:\(restPoints?.count)==currentTime:\(audioPlayer?.currentTime)")
     }
 }
 

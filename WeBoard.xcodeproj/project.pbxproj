@@ -15,7 +15,6 @@
 		91199CE41E2791F800FAB992 /* DirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CE31E2791F800FAB992 /* DirectoryPath.swift */; };
 		91199CE61E2881C400FAB992 /* SSFLineAndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CE51E2881C400FAB992 /* SSFLineAndPoint.swift */; };
 		91199CEA1E28B7B600FAB992 /* ScreenShot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CE91E28B7B600FAB992 /* ScreenShot.swift */; };
-		91199CEC1E2CC65A00FAB992 /* SSFSimpleAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CEB1E2CC65A00FAB992 /* SSFSimpleAlert.swift */; };
 		91199CF01E49B91300FAB992 /* SSFWeBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CEF1E49B91300FAB992 /* SSFWeBoard.swift */; };
 		91199CF51E4C40C900FAB992 /* RecordPathProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CF41E4C40C900FAB992 /* RecordPathProtocol.swift */; };
 		91199CF71E4C49EC00FAB992 /* SSFPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CF61E4C49EC00FAB992 /* SSFPlayerViewController.swift */; };
@@ -44,7 +43,6 @@
 		91199CE31E2791F800FAB992 /* DirectoryPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryPath.swift; sourceTree = "<group>"; };
 		91199CE51E2881C400FAB992 /* SSFLineAndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFLineAndPoint.swift; sourceTree = "<group>"; };
 		91199CE91E28B7B600FAB992 /* ScreenShot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreenShot.swift; sourceTree = "<group>"; };
-		91199CEB1E2CC65A00FAB992 /* SSFSimpleAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFSimpleAlert.swift; sourceTree = "<group>"; };
 		91199CEF1E49B91300FAB992 /* SSFWeBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFWeBoard.swift; sourceTree = "<group>"; };
 		91199CF41E4C40C900FAB992 /* RecordPathProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordPathProtocol.swift; sourceTree = "<group>"; };
 		91199CF61E4C49EC00FAB992 /* SSFPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFPlayerViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				91B9EC0A1DFE9EEA0058D05B /* Utility.swift */,
 				91199CE31E2791F800FAB992 /* DirectoryPath.swift */,
 				91199CE91E28B7B600FAB992 /* ScreenShot.swift */,
-				91199CEB1E2CC65A00FAB992 /* SSFSimpleAlert.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -268,7 +265,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				91199CE41E2791F800FAB992 /* DirectoryPath.swift in Sources */,
-				91199CEC1E2CC65A00FAB992 /* SSFSimpleAlert.swift in Sources */,
 				91199CDC1E262E0400FAB992 /* SSFElementView.swift in Sources */,
 				91199CFB1E51A08700FAB992 /* ColorDescriptionProtocol.swift in Sources */,
 				91199CF01E49B91300FAB992 /* SSFWeBoard.swift in Sources */,
