@@ -37,10 +37,9 @@ class SSFCanvasView: UIView {
     }
     
     ///This function acts on drawing with points in playing.
-    public func drawLines(withPoints points: [SSFPoint]) {
+    public func drawLines(withPoints points: [SSFPoint], withPriviousPoint lastPoint: SSFPoint) {
         if points.count == 0 { return }
-        guard let firstPoint = points.first else { return }
-        var totalRect = CGRect(x: Double(firstPoint.point.x) - brushWidth/2.0, y: Double(firstPoint.point.y) - brushWidth/2.0, width: brushWidth, height: brushWidth)
+        var totalRect = CGRect(x: Double(lastPoint.point.x) - brushWidth/2.0, y: Double(lastPoint.point.y) - brushWidth/2.0, width: brushWidth, height: brushWidth)
         
         print("\n=====pointsCount:\(points.count)")
         for (index, ssfPoint) in points.enumerated() {
@@ -55,15 +54,15 @@ class SSFCanvasView: UIView {
                 cacheContext?.setStrokeColor(brushColor.cgColor)
                 cacheContext?.move(to: ssfPoint.point)
             } else {
-                let lastPoint: SSFPoint
+                let priviousPoint: SSFPoint
                 if index == 0 {
-                    lastPoint = points[0]
+                    priviousPoint = lastPoint
                 } else {
-                    lastPoint = points[index - 1]
+                    priviousPoint = points[index - 1]
                 }
                 cacheContext?.setLineWidth(CGFloat(brushWidth))
                 cacheContext?.setStrokeColor(brushColor.cgColor)
-                cacheContext?.move(to: lastPoint.point)
+                cacheContext?.move(to: priviousPoint.point)
                 cacheContext?.addLine(to: ssfPoint.point)
             }
         }

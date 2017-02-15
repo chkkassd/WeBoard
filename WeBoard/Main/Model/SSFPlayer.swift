@@ -29,6 +29,8 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     
     private var displayLink: CADisplayLink?
     
+    private var priviousPoint: SSFPoint?
+    
     //MARK: palyer control
     
     func start(recordURL: URL) {
@@ -76,6 +78,8 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
         canvasView?.drawBackground(withImage:UIImage(contentsOfFile: backgroundImagePath)!)
         allPoints = configureAllPoints(penLinesURL: penLinesURL)
         restPoints = allPoints
+        priviousPoint = allPoints?.first
+        print("\n=====allpoints:\(allPoints?.count)")
     }
     
     private func playAudio(recordURL: URL) {
@@ -90,8 +94,8 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
         audioPlayer?.play()
     }
     
-    private func drawing(withPoints points: [SSFPoint]) {
-        canvasView?.drawLines(withPoints: points)
+    private func drawing(withPoints points: [SSFPoint], withPriviousPoint lastPoint: SSFPoint) {
+        canvasView?.drawLines(withPoints: points, withPriviousPoint: lastPoint)
     }
     
     fileprivate func clearAll() {
@@ -102,6 +106,7 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
         previousTime = 0.0
         endDisplayLink()
         isPlaying = false
+        priviousPoint = nil
     }
     
     //MARK: NSDisplayLink
@@ -118,11 +123,15 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     
     @objc private func refreshCanvasView() {
         let currentTime = audioPlayer?.currentTime
-        if let pointsToDraw = restPoints?.filter({ ($0.time! >= previousTime)&&($0.time! <= currentTime!) }) {
-            drawing(withPoints: pointsToDraw)
+        if let pointsToDraw = restPoints?.filter({ ($0.time! >= previousTime )&&($0.time! <= currentTime!) }) {
+            drawing(withPoints: pointsToDraw, withPriviousPoint: priviousPoint!)
+            restPoints = restPoints?.reject({ ($0.time! >= previousTime )&&($0.time! <= currentTime!) })
             previousTime = currentTime!
-            restPoints = restPoints?.reject({ ($0.time! >= previousTime)&&($0.time! <= currentTime!) })
+            if pointsToDraw.count > 0 {
+                priviousPoint = pointsToDraw.last
+            }
         }
+        print("\n======restPoints:\(restPoints?.count)==currentTime:\(audioPlayer?.currentTime)")
     }
 }
 
