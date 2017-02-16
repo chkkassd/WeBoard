@@ -59,6 +59,11 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
         startDisplayLink()
     }
 
+    func stop() {
+        audioPlayer?.stop()
+        endDisplayLink()
+    }
+    
     //MARK: methods
     
     private func configureAllPoints(penLinesURL: URL) -> [SSFPoint]? {

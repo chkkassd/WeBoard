@@ -16,11 +16,11 @@ class SSFRecordViewController: UIViewController {
         super.viewDidLoad()
         canvasView.delegate = self
     }
-
+    
     //MARK: Action
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion:{ [unowned self] in self.clearAll() })
     }
     
     @IBAction func colorButtonPressed(_ sender: UIButton) {
@@ -54,7 +54,23 @@ class SSFRecordViewController: UIViewController {
     }
     
     @IBAction func revokeAStrokeButtonPressed(_ sender: UIButton) {
+        var points: [SSFPoint] = []
+        if SSFRecorder.sharedInstance.isRecording {
+            guard allRecordingDrawingLines.count > 0 else { return }
+            allRecordingDrawingLines = Array(allRecordingDrawingLines.dropLast())
+            points = allRecordingDrawingLines.flatMap{ return $0.pointsOfLine }
+        } else {
+            guard allBackgroundDrawingLines.count > 0 else { return }
+            allBackgroundDrawingLines = Array(allBackgroundDrawingLines.dropLast())
+            points = allBackgroundDrawingLines.flatMap{ return $0.pointsOfLine }
+        }
         
+        if points.count > 0 {
+            canvasView.drawBackground(withColor: backgroundColor)
+            canvasView.drawLines(withPoints: points, withPriviousPoint: points.first!)
+        } else if points.count == 0 {
+            canvasView.drawBackground(withColor: backgroundColor)
+        }
     }
     
     @IBAction func revokeAllButtonPressed(_ sender: UIButton) {
@@ -79,6 +95,13 @@ class SSFRecordViewController: UIViewController {
             let vc = segue.destination as! SSFBackgroundCollectionViewController
             vc.delegate = self
         }
+    }
+    
+    func getScaledCoverImage() -> UIImage? {
+        guard let image = SSFScreenShot.screenShot(withView: canvasView) else { return nil }
+        let ratio = image.size.height / image.size.width
+        let scaledRect = CGRect(x: 0, y: 0, width: 100.0, height: 100.0 * ratio)
+        return image.scaledImage(scaledRect, 0.8)
     }
     
     //MARK: Property
@@ -108,6 +131,9 @@ class SSFRecordViewController: UIViewController {
     
     ///All elements view which used to configure background
     var allElements: [SSFElementView] = []
+    
+    ///Background color
+    var backgroundColor: UIColor = UIColor.white
     
     //MARK: Set to landscape
     
@@ -186,13 +212,6 @@ extension SSFRecordViewController {
         }
     }
     
-    func getScaledCoverImage() -> UIImage? {
-        guard let image = SSFScreenShot.screenShot(withView: canvasView) else { return nil }
-        let ratio = image.size.height / image.size.width
-        let scaledRect = CGRect(x: 0, y: 0, width: 100.0, height: 100.0 * ratio)
-        return image.scaledImage(scaledRect, 0.8)
-    }
-    
     fileprivate func clearAll() {
         //1.clear canvas
         canvasView.drawBackground(withColor: UIColor.white)
@@ -203,6 +222,7 @@ extension SSFRecordViewController {
         coverImage = nil
         allElements.forEach { $0.removeFromSuperview() }
         allElements = []
+        backgroundColor = UIColor.white
         
         //2.clear audiorecorder
         SSFRecorder.sharedInstance.endAudioRecord()
@@ -247,6 +267,7 @@ extension SSFRecordViewController: UIImagePickerControllerDelegate, UINavigation
 extension SSFRecordViewController: SSFBackgroundCollectionViewControllerDelegate {
     func backgroundCollectionViewController(_ controller: SSFBackgroundCollectionViewController, didSelectColor color: UIColor) {
         self.canvasView.drawBackground(withColor: color)
+        self.backgroundColor = color
     }
 }
 

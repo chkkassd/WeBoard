@@ -62,7 +62,7 @@ class SSFPlayerViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion:{ [unowned self] in self.clearAll() })
     }
 }
 
@@ -82,6 +82,11 @@ extension SSFPlayerViewController {
     fileprivate func resume() {
         startTimer()
         SSFPlayer.sharedInstance.resume()
+    }
+    
+    fileprivate func stop() {
+        endTimer()
+        SSFPlayer.sharedInstance.stop()
     }
     
     //MARK: Timer
@@ -115,7 +120,7 @@ extension SSFPlayerViewController: SSFPlayerDelegate {
     }
     
     func clearAll() {
-        endTimer()
+        stop()
         timeLabel.text = "00:00"
         progressView.progress = 0.0
         startButton.isSelected = false
