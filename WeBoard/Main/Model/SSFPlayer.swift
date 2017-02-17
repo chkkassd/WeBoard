@@ -61,7 +61,7 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
 
     func stop() {
         audioPlayer?.stop()
-        endDisplayLink()
+        clearAll()
     }
     
     //MARK: methods
