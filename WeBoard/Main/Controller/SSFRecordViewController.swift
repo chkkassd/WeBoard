@@ -66,10 +66,18 @@ class SSFRecordViewController: UIViewController {
         }
         
         if points.count > 0 {
-            canvasView.drawBackground(withColor: backgroundColor)
+            if SSFRecorder.sharedInstance.isRecording {
+                canvasView.drawBackground(withImage: backgroundImage!)
+            } else {
+                canvasView.drawBackground(withColor: backgroundColor)
+            }
             canvasView.drawLines(withPoints: points, withPriviousPoint: points.first!)
         } else if points.count == 0 {
-            canvasView.drawBackground(withColor: backgroundColor)
+            if SSFRecorder.sharedInstance.isRecording {
+                canvasView.drawBackground(withImage: backgroundImage!)
+            } else {
+                canvasView.drawBackground(withColor: backgroundColor)
+            }
         }
     }
     
