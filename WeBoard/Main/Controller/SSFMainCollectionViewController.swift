@@ -16,10 +16,13 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         guard let arr = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? Array<SSFWeBoard> else {
             return nil
         }
+        if arr.count == 0, isEdited { isEdited = false }
         return arr
     }
     
     var selectedWeboard: SSFWeBoard?
+    
+    var isEdited: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,46 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    //MARK: Present to record
+    
+    @IBAction func recordButtonPressed(_ sender: UIBarButtonItem) {
+        if !isEdited {
+            self.performSegue(withIdentifier: "showRecordController", sender: self)
+        }
+    }
+    
+    // MARK: Edite and animation
+    
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        isEdited = !isEdited
+        if isEdited {
+            self.collectionView?.visibleCells.forEach { cell in
+                let mainCell = cell as! MainCollectionViewCell
+                mainCell.deleteButton.isHidden = false
+                shakeAnimation(mainCell)
+            }
+        } else {
+            self.collectionView?.visibleCells.forEach { cell in
+                let mainCell = cell as! MainCollectionViewCell
+                mainCell.deleteButton.isHidden = true
+                endShakeAnimation(cell)
+            }
+        }
+    }
+    
+    private func shakeAnimation(_ view: UIView) {
+        let animation = CAKeyframeAnimation(keyPath: "transform.rotation")
+        animation.values = [angle2Radian(-2.0), angle2Radian(2.0), angle2Radian(-2.0)]
+        animation.duration = 0.25
+        animation.repeatCount = MAXFLOAT
+        animation.fillMode = kCAFillModeForwards
+        view.layer.add(animation, forKey: "shake")
+    }
+    
+    private func endShakeAnimation(_ view: UIView) {
+        view.layer.removeAllAnimations()
     }
     
     // MARK: segue
@@ -43,6 +86,21 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     // MARK: Update the list view
     @objc func updateList() {
         self.collectionView?.reloadData()
+    }
+    
+    // MARK: Delete a weboard and reload collection view
+    
+    private func delete(_ weboard: SSFWeBoard) -> Bool {
+        try? FileManager.default.removeItem(at: weboard.directoryURL)
+        guard let weboards = allData else { return false }
+        let newBoards = weboards.reject { $0.directoryURL == weboard.directoryURL }
+        return NSKeyedArchiver.archiveRootObject(newBoards, toFile: pathOfArchivedWeBoard())
+    }
+    
+    private func deleteAndReload(_ weboard: SSFWeBoard, _ index: IndexPath) {
+        if delete(weboard) {
+            self.collectionView?.reloadData()
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -70,9 +128,15 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         cell.timeLabel.text = weBoard.time.timeFormatString()
         if FileManager.default.fileExists(atPath: weBoard.coverImagePath) {
             cell.coverImageView.image = UIImage(contentsOfFile: weBoard.coverImagePath)
-            print("=======\(weBoard.coverImagePath)")
         } else {
         }
+        
+        cell.deleteCompletion = { [unowned self] in
+            //Delete operation
+            cell.layer.removeAllAnimations()
+            self.deleteAndReload(weBoard, indexPath)
+        }
+        
         return cell
     }
 
@@ -86,8 +150,27 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        selectedWeboard = allData?[indexPath.row]
-        self.performSegue(withIdentifier: "showPlayerController", sender: self)
+        if !isEdited {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            selectedWeboard = allData?[indexPath.row]
+            self.performSegue(withIdentifier: "showPlayerController", sender: self)
+        }
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if isEdited {
+            let mainCell = cell as! MainCollectionViewCell
+            mainCell.deleteButton.isHidden = false
+            shakeAnimation(mainCell)
+        }
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if isEdited {
+            let mainCell = cell as! MainCollectionViewCell
+            mainCell.deleteButton.isHidden = true
+            endShakeAnimation(mainCell)
+        }
     }
 }

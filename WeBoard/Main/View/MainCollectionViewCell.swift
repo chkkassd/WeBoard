@@ -12,4 +12,12 @@ class MainCollectionViewCell: UICollectionViewCell {
     @IBOutlet var coverImageView: UIImageView!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var deleteButton: UIButton!
+    
+    @IBAction func deleteButtonPressed(_ sender: UIButton) {
+        guard let completion = deleteCompletion else { return }
+        completion()
+    }
+    
+    var deleteCompletion: (() -> Void)?
 }
