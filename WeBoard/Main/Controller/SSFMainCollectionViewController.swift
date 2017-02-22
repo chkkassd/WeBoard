@@ -22,6 +22,7 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     
     var selectedWeboard: SSFWeBoard?
     
+    ///Whether is edited model,default is false
     var isEdited: Bool = false
     
     override func viewDidLoad() {
@@ -62,7 +63,7 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     
     private func shakeAnimation(_ view: UIView) {
         let animation = CAKeyframeAnimation(keyPath: "transform.rotation")
-        animation.values = [angle2Radian(-2.0), angle2Radian(2.0), angle2Radian(-2.0)]
+        animation.values = [angle2Radian(-1.0), angle2Radian(1.0), angle2Radian(-1.0)]
         animation.duration = 0.25
         animation.repeatCount = MAXFLOAT
         animation.fillMode = kCAFillModeForwards
@@ -131,7 +132,7 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         } else {
         }
         
-        cell.deleteCompletion = { [unowned self] in
+        cell.deleteCompletion = { //[unowned self] in
             //Delete operation
             cell.layer.removeAllAnimations()
             self.deleteAndReload(weBoard, indexPath)

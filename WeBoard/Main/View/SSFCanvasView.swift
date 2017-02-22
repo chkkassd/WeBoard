@@ -17,7 +17,7 @@ enum CanvasViewModel {
 }
 
 class SSFCanvasView: UIView {
-
+    
     override func draw(_ rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         guard let cacheImage = cacheContext?.makeImage() else { return }
@@ -106,27 +106,29 @@ class SSFCanvasView: UIView {
     
     ///Creat the bitmapContext which is used to offscreen drawing.
     private lazy var cacheContext: CGContext? = {
-        let bitmapWidth = Int(self.frame.size.width)
-        let bitmapHeight = Int(self.frame.size.height)
+        let bitmapWidth = Int(self.bounds.size.width)
+        let bitmapHeight = Int(self.bounds.size.height)
         let bitmapBytesPerRow = bitmapWidth * 4
         let bitmapBytesCount = bitmapBytesPerRow * bitmapHeight
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapData = calloc(bitmapBytesCount, MemoryLayout<CChar>.size)
-
+        let bitmapData = malloc(bitmapBytesCount)//calloc(bitmapBytesCount, MemoryLayout<CChar>.size)
+        
         if bitmapData == nil {
             return nil
         }
-            
-        var context = CGContext(data: bitmapData, width: bitmapWidth, height: bitmapHeight, bitsPerComponent: 8, bytesPerRow: bitmapBytesPerRow, space: colorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipFirst.rawValue).union(.byteOrder32Little)
+        
+        let context = CGContext(data: bitmapData, width: bitmapWidth, height: bitmapHeight, bitsPerComponent: 8, bytesPerRow: bitmapBytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue)
         context?.setLineCap(CGLineCap.round)
         context?.setFillColor(UIColor.white.cgColor)
         context?.fill(self.bounds)
         
-        guard let con = context else {
+        guard context != nil else {
             free(bitmapData)
             return nil
         }
         return context
+
     }()
     
     private var previousPoint: CGPoint!

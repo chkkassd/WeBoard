@@ -20,7 +20,7 @@ class SSFRecordViewController: UIViewController {
     //MARK: Action
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        self.dismiss(animated: true, completion:{ [unowned self] in self.clearAll() })
+        self.dismiss(animated: true, completion:{ self.clearAll() })
     }
     
     @IBAction func colorButtonPressed(_ sender: UIButton) {
@@ -114,11 +114,11 @@ class SSFRecordViewController: UIViewController {
     
     //MARK: Property
     
-    @IBOutlet var canvasView: SSFCanvasView!
+    @IBOutlet weak var canvasView: SSFCanvasView!
     
-    @IBOutlet var timeLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
-    @IBOutlet var startButton: RoundButton!
+    @IBOutlet weak var startButton: RoundButton!
     
     var timer: Timer?
     
