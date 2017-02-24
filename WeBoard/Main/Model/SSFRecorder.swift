@@ -38,8 +38,7 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
     // MARK: Public API - Audio recording control
     
     public func startAudioRecord() {
-        recordDuration = nil
-        recordUUID = nil
+        clearAll()
         if audioRecoder == nil {
             //1. Select the category and option of AVAudioSession, and then activate the session.
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
@@ -146,11 +145,18 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
             
             DispatchQueue.main.async {
                 print("Finsh saved")
+                self.clearAll()
                 completionHandler(true, nil)
             }
         }
         
 
+    }
+    
+    private func clearAll() {
+        recordUUID = nil
+        recordDuration = nil
+        audioRecoder = nil
     }
     
     ///Translate the array of SSFLine to the json dictionary object which used to record the pens with json.每笔作为数组元素

@@ -32,7 +32,7 @@ class SSFCanvasView: UIView {
     ///The line color of pain
     public var brushColor = DefaultLineColor
     
-    weak var delegate: SSFCanvasViewDelegate?
+    public weak var delegate: SSFCanvasViewDelegate?
     
     public var model: CanvasViewModel = .paintModel//Default is paint model,u can change it with uself
     
