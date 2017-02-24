@@ -53,6 +53,10 @@ class SSFCanvasView: UIView {
         self.setNeedsDisplay()
     }
     
+    public func endAndFree() {
+        free(self.bitmapData)
+    }
+    
     ///This function acts on drawing with points in playing.
     public func drawLines(withPoints points: [SSFPoint], withPriviousPoint lastPoint: SSFPoint) {
         if points.count == 0 { return }
@@ -110,26 +114,28 @@ class SSFCanvasView: UIView {
         let bitmapHeight = Int(self.bounds.size.height)
         let bitmapBytesPerRow = bitmapWidth * 4
         let bitmapBytesCount = bitmapBytesPerRow * bitmapHeight
-        let bitmapData = malloc(bitmapBytesCount)//calloc(bitmapBytesCount, MemoryLayout<CChar>.size)
+        self.bitmapData = malloc(bitmapBytesCount)//calloc(bitmapBytesCount, MemoryLayout<CChar>.size)
         
-        if bitmapData == nil {
+        if self.bitmapData == nil {
             return nil
         }
         
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipFirst.rawValue).union(.byteOrder32Little)
         
-        let context = CGContext(data: bitmapData, width: bitmapWidth, height: bitmapHeight, bitsPerComponent: 8, bytesPerRow: bitmapBytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue)
+        let context = CGContext(data: self.bitmapData, width: bitmapWidth, height: bitmapHeight, bitsPerComponent: 8, bytesPerRow: bitmapBytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue)
         context?.setLineCap(CGLineCap.round)
         context?.setFillColor(UIColor.white.cgColor)
         context?.fill(self.bounds)
         
         guard context != nil else {
-            free(bitmapData)
+            free(self.bitmapData)
             return nil
         }
         return context
 
     }()
+    
+    private var bitmapData: UnsafeMutableRawPointer!
     
     private var previousPoint: CGPoint!
     

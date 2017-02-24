@@ -62,7 +62,10 @@ class SSFPlayerViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        self.dismiss(animated: true, completion:{ self.clearAll() })
+        self.dismiss(animated: true, completion:{
+            self.clearAll()
+            self.canvasView.endAndFree()
+        })
     }
 }
 
