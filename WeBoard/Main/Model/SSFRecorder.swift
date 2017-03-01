@@ -44,7 +44,7 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
             try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
             try? AVAudioSession.sharedInstance().setActive(true)
             AVAudioSession.sharedInstance().requestRecordPermission () {
-                [unowned self] allowed in
+                allowed in
                 if allowed {
                     // Microphone allowed, do what you like!
                     

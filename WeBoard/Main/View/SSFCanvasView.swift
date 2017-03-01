@@ -24,6 +24,10 @@ class SSFCanvasView: UIView {
         context.draw(cacheImage, in: self.bounds)
     }
 
+    deinit {
+        print("canvas view deinit")
+    }
+    
     //MARK: Public API - Property
     
     ///The line width of pain
@@ -55,6 +59,7 @@ class SSFCanvasView: UIView {
     
     public func endAndFree() {
         free(self.bitmapData)
+        self.bitmapData = nil
     }
     
     ///This function acts on drawing with points in playing.

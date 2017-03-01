@@ -19,6 +19,10 @@ class SSFRecordViewController: UIViewController {
     
     //MARK: Action
     
+    deinit {
+        print("record vc deinit")
+    }
+    
     @IBAction func backButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion:{
             self.clearAll()

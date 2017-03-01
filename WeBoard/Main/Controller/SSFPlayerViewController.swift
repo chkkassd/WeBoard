@@ -20,6 +20,10 @@ class SSFPlayerViewController: UIViewController {
         startButtonPressed(startButton)
     }
     
+    deinit {
+        print("player vc deinit")
+    }
+    
     //MARK: Methods
     
     ///Set up the player
