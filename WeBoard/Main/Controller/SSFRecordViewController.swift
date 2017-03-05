@@ -49,15 +49,21 @@ class SSFRecordViewController: UIViewController {
     }
     
     @IBAction func cameraButtonPressed(_ sender: UIButton) {
-        presentImagePickerViewController(withSourceType: UIImagePickerControllerSourceType.camera)
+        if !SSFRecorder.sharedInstance.isRecording {
+            presentImagePickerViewController(withSourceType: UIImagePickerControllerSourceType.camera)
+        }
     }
     
     @IBAction func photoButtonPressed(_ sender: UIButton) {
-        presentImagePickerViewController(withSourceType: UIImagePickerControllerSourceType.photoLibrary)
+        if !SSFRecorder.sharedInstance.isRecording {
+            presentImagePickerViewController(withSourceType: UIImagePickerControllerSourceType.photoLibrary)
+        }
     }
     
     @IBAction func backgroundImageButtonPressed(_ sender: UIButton) {
-        self.performSegue(withIdentifier: "showBackgroundCollectionViewController", sender: self)
+        if !SSFRecorder.sharedInstance.isRecording {
+            self.performSegue(withIdentifier: "showBackgroundCollectionViewController", sender: self)
+        }
     }
     
     @IBAction func revokeAStrokeButtonPressed(_ sender: UIButton) {
@@ -89,7 +95,9 @@ class SSFRecordViewController: UIViewController {
     }
     
     @IBAction func revokeAllButtonPressed(_ sender: UIButton) {
-        clearAll()
+        if !SSFRecorder.sharedInstance.isRecording {
+            showClearAllAlert()
+        }
     }
     
     @IBAction func startButtonPressed(_ sender: RoundButton) {
@@ -190,6 +198,17 @@ extension SSFRecordViewController {
         alert.addAction(resumeAction)
         alert.addAction(clearAction)
         alert.addAction(saveAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    fileprivate func showClearAllAlert() {
+        let alert = UIAlertController(title: nil, message: "确认清除所有绘制?", preferredStyle: UIAlertControllerStyle.alert)
+        let sureAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { _ in
+            self.clearAll()
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+        alert.addAction(sureAction)
+        alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
     }
     
