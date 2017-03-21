@@ -232,6 +232,15 @@ extension UIImage {
     }
 }
 
+extension Optional {
+    ///用在closure里，用来保证capture list里被捕捉的对象在用weak修饰后，能够在任务完成之前一直保存在内存里
+    func withExtendedLiftTime(_ body: (Wrapped) -> Void) {
+        if let value = self {
+            body(value)
+        }
+    }
+}
+
 //MARK:- CustomOperator
 
 infix operator !!

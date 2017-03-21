@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+///This protocol translate the UIColor to color string with each other.
 protocol ColorDescriptionPotocol {
     func colorToColorString(withColor color: UIColor) -> String
     func colorStringToColor(withColorString colorString: String) -> UIColor

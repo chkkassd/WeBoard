@@ -12,7 +12,27 @@ import UIKit
 
 let kAudioRecorderSampleRate = 44100.0
 
-typealias RecordCompletion = (Bool, String?) -> Void
+typealias RecordCompletion = (Result<String>) -> Void
+
+enum RecordError: LocalizedError{
+    case failToSaveImage
+    case failToSaveSound
+    case failToSavePenLines
+    case failToOther
+    
+    public var errorDescription: String? {
+        switch self {
+        case .failToSaveImage:
+            return "图片保存失败"
+        case .failToSaveSound:
+            return "音频保存失败"
+        case .failToSavePenLines:
+            return "笔迹保存失败"
+        case .failToOther:
+            return "保存失败"
+        }
+    }
+}
 
 class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
     static let sharedInstance = SSFRecorder()
@@ -124,14 +144,26 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
         
         //start a new thread to write data to file and save archived object
         DispatchQueue.global().async {
+            var result: Result<String> = Result.success("保存成功")
             
             //1.save penlines,picture,sound
-            try? backgroundImageData.write(to: backgroundURL)
-            try? coverImageData.write(to: coverURL)
-            try? FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)
+            if (try? backgroundImageData.write(to: backgroundURL)) == nil {
+                result = Result.failure(RecordError.failToSaveImage)
+            }
+            if (try? coverImageData.write(to: coverURL)) == nil {
+                result = Result.failure(RecordError.failToSaveImage)
+            }
+            if (try? FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)) == nil {
+                result = Result.failure(RecordError.failToSaveSound)
+            }
             if JSONSerialization.isValidJSONObject(penDic) {
-                guard let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted) else { return }
-                try? penData.write(to: penLinesURL)
+                if let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted) {
+                    if (try? penData.write(to: penLinesURL)) == nil {
+                        result = Result.failure(RecordError.failToSavePenLines)
+                    }
+                }else {
+                    result = Result.failure(RecordError.failToOther)
+                }
             }
             
             //2.save archived weboard to show list in the fist collection view
@@ -144,13 +176,10 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
             }
             
             DispatchQueue.main.async {
-                print("Finsh saved")
                 self.clearAll()
-                completionHandler(true, nil)
+                completionHandler(result)
             }
         }
-        
-
     }
     
     private func clearAll() {
