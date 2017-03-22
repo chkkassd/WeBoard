@@ -78,7 +78,16 @@ extension SSFPlayerViewController {
     // MARK: play control
     fileprivate func startPlay() {
         startTimer()
-        SSFPlayer.sharedInstance.start(recordURL: (weBoard?.directoryURL) !! "CrashError: weBoard is nil in SSFPlayerViewController")
+        SSFPlayer.sharedInstance.start(recordURL: (weBoard?.directoryURL) !! "CrashError: weBoard is nil in SSFPlayerViewController", completionHandler: { result in
+            switch result {
+            case .success(let str):
+                print("\(str)")
+            case .failure(let error):
+                let playerError = error as! PlayerError
+                clearAll()
+                SwiftNotice.showNoticeWithText(.success, text: playerError.errorDescription!, autoClear: true, autoClearTime: 2)
+            }
+        })
     }
     
     fileprivate func pause() {

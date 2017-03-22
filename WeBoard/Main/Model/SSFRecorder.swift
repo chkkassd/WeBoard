@@ -15,20 +15,20 @@ let kAudioRecorderSampleRate = 44100.0
 typealias RecordCompletion = (Result<String>) -> Void
 
 enum RecordError: LocalizedError{
-    case failToSaveImage
-    case failToSaveSound
-    case failToSavePenLines
-    case failToOther
+    case recordFailToSaveImage
+    case recordFailToSaveSound
+    case recordFailToSavePenLines
+    case recordFailToOther
     
     public var errorDescription: String? {
         switch self {
-        case .failToSaveImage:
+        case .recordFailToSaveImage:
             return "图片保存失败"
-        case .failToSaveSound:
+        case .recordFailToSaveSound:
             return "音频保存失败"
-        case .failToSavePenLines:
+        case .recordFailToSavePenLines:
             return "笔迹保存失败"
-        case .failToOther:
+        case .recordFailToOther:
             return "保存失败"
         }
     }
@@ -148,21 +148,21 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
             
             //1.save penlines,picture,sound
             if (try? backgroundImageData.write(to: backgroundURL)) == nil {
-                result = Result.failure(RecordError.failToSaveImage)
+                result = Result.failure(RecordError.recordFailToSaveImage)
             }
             if (try? coverImageData.write(to: coverURL)) == nil {
-                result = Result.failure(RecordError.failToSaveImage)
+                result = Result.failure(RecordError.recordFailToSaveImage)
             }
             if (try? FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)) == nil {
-                result = Result.failure(RecordError.failToSaveSound)
+                result = Result.failure(RecordError.recordFailToSaveSound)
             }
             if JSONSerialization.isValidJSONObject(penDic) {
                 if let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted) {
                     if (try? penData.write(to: penLinesURL)) == nil {
-                        result = Result.failure(RecordError.failToSavePenLines)
+                        result = Result.failure(RecordError.recordFailToSavePenLines)
                     }
                 }else {
-                    result = Result.failure(RecordError.failToOther)
+                    result = Result.failure(RecordError.recordFailToOther)
                 }
             }
             

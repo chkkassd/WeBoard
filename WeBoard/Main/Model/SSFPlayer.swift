@@ -10,6 +10,25 @@ import Foundation
 import AVFoundation
 import UIKit
 
+typealias PlayerCompletionHandler = (Result<String>) -> Swift.Void
+
+enum PlayerError: LocalizedError {
+    case playerFailToParsePenLines
+    case playerFailToPlayAudio
+    case playerFailToPlay
+    
+    public var errorDescription: String? {
+        switch self {
+        case .playerFailToParsePenLines:
+            return "播放器解析出错"
+        case .playerFailToPlayAudio:
+            return "播放器音频出错"
+        case .playerFailToPlay:
+            return "播放器出错"
+        }
+    }
+}
+
 class SSFPlayer: NSObject, ColorDescriptionPotocol {
     static let sharedInstance = SSFPlayer()
     
@@ -38,15 +57,16 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
 
     //MARK: PublicApi-Palyer control
     
-    func start(recordURL: URL) {
+    func start(recordURL: URL, completionHandler:PlayerCompletionHandler) {
         //1.clear player
         clearAll()
-        //2.Prepare to play,inluding setting up the background image,configure pen lines array
-        setUpForPlay(recordURL: recordURL)
-        //3.play sound
-        playAudio(recordURL: recordURL)
-        //4.refresh points
+        //2.Prepare to play,inluding setting up the background image,configure pen lines array, and then set up the audio player to play
+        let result = setUpAndPlay(recordURL: recordURL)
+
+        //3.refresh points
         startDisplayLink()
+        
+        completionHandler(result)
     }
     
     func pause() {
@@ -66,38 +86,51 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     
     //MARK: methods
     
-    private func configureAllPoints(penLinesURL: URL) -> [SSFPoint]? {
-        guard let penData = try? Data(contentsOf: penLinesURL, options: Data.ReadingOptions.mappedIfSafe) else { return nil }
-        guard let penDic = (try? JSONSerialization.jsonObject(with: penData, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String : [[String : Any]]] else { return nil }
-        guard let points = penDic["drawingPoints"] else { return nil }
+    private func configureAllPoints(penLinesURL: URL) -> Result<[SSFPoint]> {
+        guard let penData = try? Data(contentsOf: penLinesURL, options: Data.ReadingOptions.mappedIfSafe) else { return Result.failure(PlayerError.playerFailToParsePenLines) }
+        guard let penDic = (try? JSONSerialization.jsonObject(with: penData, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [String : [[String : Any]]] else { return Result.failure(PlayerError.playerFailToParsePenLines) }
+        guard let points = penDic["drawingPoints"] else { return Result.failure(PlayerError.playerFailToParsePenLines) }
         
-        return points.map { pointDic -> SSFPoint in
+        let ssfPoints = points.map { pointDic -> SSFPoint in
             let point = CGPoint(x: pointDic["pointX"] as! Double, y: pointDic["pointY"] as! Double)
             let ssfPoint = SSFPoint(point: point, time: pointDic["time"] as? Double, color: colorStringToColor(withColorString: pointDic["color"] as! String), width: pointDic["width"] as! Double, isStartOfLine: pointDic["isStartOfLine"] as! Bool)
             return ssfPoint
         }
+        return Result.success(ssfPoints)
     }
     
-    private func setUpForPlay(recordURL: URL) {
+    private func setUpAndPlay(recordURL: URL) -> Result<String> {
+        //1.set up the preparation of pen lines
         let penLinesURL = recordURL.appendingPathComponent(DefaultPenLinesName)
         let backgroundImageURL = recordURL.appendingPathComponent(DefaultBackgroundImageName)
         let backgroundImagePath = backgroundImageURL.pathString!
         canvasView?.drawBackground(withImage:UIImage(contentsOfFile: backgroundImagePath)!)
-        allPoints = configureAllPoints(penLinesURL: penLinesURL)
+        switch configureAllPoints(penLinesURL: penLinesURL) {
+        case .success(let points):
+            allPoints = points
+        case .failure(let error):
+            allPoints = nil
+            return Result.failure(error)
+        }
         restPoints = allPoints
         priviousPoint = allPoints?.first
-    }
-    
-    private func playAudio(recordURL: URL) {
+        
+        //2.set up the audio player
         try? AVAudioSession.sharedInstance().setActive(true)
         let audioURL = recordURL.appendingPathComponent(DefaultAudioName)
         if audioPlayer == nil {
-            audioPlayer = try? AVAudioPlayer(contentsOf: audioURL)
+            guard let player = try? AVAudioPlayer(contentsOf: audioURL) else { return Result.failure(PlayerError.playerFailToPlayAudio) }
+            audioPlayer = player
             audioPlayer?.delegate = self
             audioPlayer?.volume = 1.0
         }
-        audioPlayer?.prepareToPlay()
-        audioPlayer?.play()
+        let isPrepareToPlay = audioPlayer!.prepareToPlay()
+        let isPlay = audioPlayer!.play()
+        if isPrepareToPlay , isPlay {
+            return Result.success("播放初始化成功")
+        } else {
+            return Result.failure(PlayerError.playerFailToPlayAudio)
+        }
     }
     
     private func drawing(withPoints points: [SSFPoint], withPriviousPoint lastPoint: SSFPoint) {
