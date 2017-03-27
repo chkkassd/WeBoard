@@ -34,7 +34,7 @@ enum RecordError: LocalizedError{
     }
 }
 
-class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
+class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol, TransformationPensAndJsonProtocol{
     static let sharedInstance = SSFRecorder()
     
     private var recordDuration: Double?
@@ -186,44 +186,5 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol{
         recordUUID = nil
         recordDuration = nil
         audioRecoder = nil
-    }
-    
-    ///Translate the array of SSFLine to the json dictionary object which used to record the pens with json.每笔作为数组元素
-    private func translateToJsonDictionaryPenLineStyle(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]] {
-        let allDrawingPens = penLines.map { aLine -> [String : Any] in
-            var lineDic: [String : Any] = [:]
-            lineDic["color"] = colorToColorString(withColor: aLine.color)
-            lineDic["width"] = aLine.width
-            lineDic["pointsOfLine"] = aLine.pointsOfLine.map{ aPoint -> [String : Any] in
-                var pointDic: [String : Any] = [:]
-                pointDic["pointX"] = Double(aPoint.point.x)
-                pointDic["pointY"] = Double(aPoint.point.y)
-                pointDic["time"] = aPoint.time ?? 0
-                pointDic["color"] = colorToColorString(withColor: aPoint.color)
-                pointDic["width"] = aPoint.width
-                pointDic["isStartOfLine"] = aPoint.isStartOfLine
-                return pointDic
-            }
-            return lineDic
-        }
-        return ["drawingPenLines" : allDrawingPens]
-    }
-    
-    ///Translate the array of SSFLine to the json dictionary object which used to record the pens with json.每点作为数组元素
-    private func translateToJsonDictionaryPointStyle(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]] {
-        let allDrawingPoints = penLines.flatMap { aLine -> [[String : Any]] in
-            let points = aLine.pointsOfLine.map{ aPoint -> [String : Any] in
-                var pointDic: [String : Any] = [:]
-                pointDic["pointX"] = Double(aPoint.point.x)
-                pointDic["pointY"] = Double(aPoint.point.y)
-                pointDic["time"] = aPoint.time ?? 0
-                pointDic["color"] = colorToColorString(withColor: aPoint.color)
-                pointDic["width"] = aPoint.width
-                pointDic["isStartOfLine"] = aPoint.isStartOfLine
-                return pointDic
-            }
-            return points
-        }
-        return ["drawingPoints" : allDrawingPoints]
     }
 }

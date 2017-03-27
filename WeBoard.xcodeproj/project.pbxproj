@@ -32,6 +32,7 @@
 		91B9EC131DFEA22A0058D05B /* SSFMainCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC121DFEA22A0058D05B /* SSFMainCollectionViewController.swift */; };
 		91B9EC151DFEA3560058D05B /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */; };
 		91C9ADD51E81121300978E14 /* ResultDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C9ADD41E81121300978E14 /* ResultDescription.swift */; };
+		91C9ADD71E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C9ADD61E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift */; };
 		91E2ACA81E08CDDE00EF9A0D /* SSFRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACA71E08CDDE00EF9A0D /* SSFRecordViewController.swift */; };
 		91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */; };
 		91E2ACAE1E09051900EF9A0D /* SSFCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */; };
@@ -66,6 +67,7 @@
 		91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		91B9EC1E1DFEAD070058D05B /* WeBoard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeBoard-Bridging-Header.h"; sourceTree = "<group>"; };
 		91C9ADD41E81121300978E14 /* ResultDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultDescription.swift; sourceTree = "<group>"; };
+		91C9ADD61E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformationPensAndJsonProtocol.swift; sourceTree = "<group>"; };
 		91E2ACA71E08CDDE00EF9A0D /* SSFRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFRecordViewController.swift; sourceTree = "<group>"; };
 		91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateNavigationViewController.swift; sourceTree = "<group>"; };
 		91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFCanvasView.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			children = (
 				91199CF41E4C40C900FAB992 /* RecordPathProtocol.swift */,
 				91199CFA1E51A08700FAB992 /* ColorDescriptionProtocol.swift */,
+				91C9ADD61E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				91B9EC0D1DFE9EEA0058D05B /* SwiftNotice.swift in Sources */,
 				91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */,
 				91C9ADD51E81121300978E14 /* ResultDescription.swift in Sources */,
+				91C9ADD71E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift in Sources */,
 				91199CDA1E26080100FAB992 /* RoundButton.swift in Sources */,
 				91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */,
 				91199CF51E4C40C900FAB992 /* RecordPathProtocol.swift in Sources */,
