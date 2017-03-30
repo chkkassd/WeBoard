@@ -22,6 +22,7 @@
 		91199CFB1E51A08700FAB992 /* ColorDescriptionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CFA1E51A08700FAB992 /* ColorDescriptionProtocol.swift */; };
 		91199D041E56A3DF00FAB992 /* play.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91199D021E56A3DF00FAB992 /* play.gif */; };
 		91199D051E56A3DF00FAB992 /* record.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91199D031E56A3DF00FAB992 /* record.gif */; };
+		917B212F1E8CE7A50058114E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917B212E1E8CE7A50058114E /* Alamofire.framework */; };
 		91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EBF31DFE51A60058D05B /* AppDelegate.swift */; };
 		91B9EBF91DFE51A60058D05B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBF71DFE51A60058D05B /* Main.storyboard */; };
 		91B9EBFB1DFE51A60058D05B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBFA1DFE51A60058D05B /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 		91199CFA1E51A08700FAB992 /* ColorDescriptionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorDescriptionProtocol.swift; sourceTree = "<group>"; };
 		91199D021E56A3DF00FAB992 /* play.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = play.gif; sourceTree = "<group>"; };
 		91199D031E56A3DF00FAB992 /* record.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = record.gif; sourceTree = "<group>"; };
+		917B212E1E8CE7A50058114E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		91B9EBF01DFE51A60058D05B /* WeBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91B9EBF31DFE51A60058D05B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91B9EBF81DFE51A60058D05B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				917B212F1E8CE7A50058114E /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,11 +97,20 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		917B212D1E8CE7A40058114E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				917B212E1E8CE7A50058114E /* Alamofire.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		91B9EBE71DFE51A60058D05B = {
 			isa = PBXGroup;
 			children = (
 				91B9EBF21DFE51A60058D05B /* WeBoard */,
 				91B9EBF11DFE51A60058D05B /* Products */,
+				917B212D1E8CE7A40058114E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -212,6 +224,7 @@
 				91B9EBEC1DFE51A60058D05B /* Sources */,
 				91B9EBED1DFE51A60058D05B /* Frameworks */,
 				91B9EBEE1DFE51A60058D05B /* Resources */,
+				917B21301E8CE80B0058114E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -272,6 +285,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		917B21301E8CE80B0058114E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		91B9EBEC1DFE51A60058D05B /* Sources */ = {
@@ -385,6 +415,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6TN2Z9K2RK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WeBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
@@ -497,6 +531,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6TN2Z9K2RK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WeBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
@@ -513,6 +551,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 6TN2Z9K2RK;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = WeBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
