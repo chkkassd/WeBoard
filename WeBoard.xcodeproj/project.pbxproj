@@ -23,6 +23,7 @@
 		91199D041E56A3DF00FAB992 /* play.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91199D021E56A3DF00FAB992 /* play.gif */; };
 		91199D051E56A3DF00FAB992 /* record.gif in Resources */ = {isa = PBXBuildFile; fileRef = 91199D031E56A3DF00FAB992 /* record.gif */; };
 		917B212F1E8CE7A50058114E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 917B212E1E8CE7A50058114E /* Alamofire.framework */; };
+		917B21321E8E597B0058114E /* NetWorkResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B21311E8E597B0058114E /* NetWorkResource.swift */; };
 		91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EBF31DFE51A60058D05B /* AppDelegate.swift */; };
 		91B9EBF91DFE51A60058D05B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBF71DFE51A60058D05B /* Main.storyboard */; };
 		91B9EBFB1DFE51A60058D05B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91B9EBFA1DFE51A60058D05B /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		91199D021E56A3DF00FAB992 /* play.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = play.gif; sourceTree = "<group>"; };
 		91199D031E56A3DF00FAB992 /* record.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = record.gif; sourceTree = "<group>"; };
 		917B212E1E8CE7A50058114E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		917B21311E8E597B0058114E /* NetWorkResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetWorkResource.swift; sourceTree = "<group>"; };
 		91B9EBF01DFE51A60058D05B /* WeBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91B9EBF31DFE51A60058D05B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91B9EBF81DFE51A60058D05B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				91B9EC071DFE9EEA0058D05B /* Utility */,
 				91199CDD1E26308900FAB992 /* Constant.swift */,
+				917B21311E8E597B0058114E /* NetWorkResource.swift */,
 			);
 			path = Expand;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				91B9EC0D1DFE9EEA0058D05B /* SwiftNotice.swift in Sources */,
 				91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */,
 				91C9ADD51E81121300978E14 /* ResultDescription.swift in Sources */,
+				917B21321E8E597B0058114E /* NetWorkResource.swift in Sources */,
 				91C9ADD71E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift in Sources */,
 				91199CDA1E26080100FAB992 /* RoundButton.swift in Sources */,
 				91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */,

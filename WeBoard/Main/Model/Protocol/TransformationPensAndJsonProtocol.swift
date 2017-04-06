@@ -11,7 +11,6 @@ import Foundation
 protocol TransformationPensAndJsonProtocol: ColorDescriptionPotocol {
     func translateToJsonDictionaryPenLineStyle(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]]
     func translateToJsonDictionaryPointStyle(withPenLines penLines: [SSFLine]) -> [String : [[String : Any]]]
-    
 }
 
 extension TransformationPensAndJsonProtocol {
