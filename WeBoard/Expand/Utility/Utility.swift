@@ -12,20 +12,6 @@ import UIKit
 //MARK:- Extension
 
 extension String {
-    /**
-     Data transform to String
-     - Parameters:
-       - data:The data of transform
-     - Returns: The string transformed from data
-     - Authors:
-     Peter.Shi
-     - date: 2016.9.21
-     */
-    static func decodeNetwork(data:Data) -> String {
-        let originString = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-        let string = originString?.replacingOccurrences(of: "+", with: " ")
-        return string!.replacingPercentEscapes(using: String.Encoding.utf8)!
-    }
     
     /**
      A only get computed property that return the md5 string from the origin string.

@@ -14,5 +14,5 @@ let ScreenHeight = UIScreen.main.bounds.size.height
 
 ///围绕x，y，z轴旋转角度
 func angle2Radian(_ angle: Double) -> Double {
-    return angle / 180.0 * M_PI
+    return angle / 180.0 * Double.pi
 }
