@@ -27,7 +27,6 @@ class SSFCanvasView: UIView {
 
     deinit {
         print("canvas view deinit")
-        print("hello world")
     }
     
     //MARK: Public API - Property
