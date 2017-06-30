@@ -9,6 +9,7 @@
 import UIKit
 
 let DefaultLineColor = UIColor.black
+
 let DefaultLineWidth = 5.0
 
 enum CanvasViewModel {
@@ -26,6 +27,7 @@ class SSFCanvasView: UIView {
 
     deinit {
         print("canvas view deinit")
+        print("hello world")
     }
     
     //MARK: Public API - Property
