@@ -31,7 +31,6 @@ enum RecordError: LocalizedError{
         case .recordFailToOther:
             return "保存失败"
         }
-        print("haha")
     }
 }
 
