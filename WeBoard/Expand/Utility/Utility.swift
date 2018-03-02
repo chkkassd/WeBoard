@@ -120,7 +120,7 @@ extension Array {
     ///Weather all elements match the predicate.
     ///- Authors: Peter.Shi
     ///- date: 2016.11.3
-    func all(matching predicate: (Element) -> Bool) -> Bool {
+    func allMatch(_ predicate: (Element) -> Bool) -> Bool {
         return !contains(where: {!predicate($0)})
     }
 }
