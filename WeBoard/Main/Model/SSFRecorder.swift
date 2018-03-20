@@ -165,7 +165,13 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol, TransformationP
                     result = Result.failure(RecordError.recordFailToOther)
                 }
             }
-            
+//            if JSONSerialization.isValidJSONObject(penDic), let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted), (try? penData.write(to: penLinesURL)) == nil {
+//                        result = Result.failure(RecordError.recordFailToSavePenLines)
+//                    }
+//                else {
+//                    result = Result.failure(RecordError.recordFailToOther)
+//                }
+        
             //2.save archived weboard to show list in the fist collection view
             if var weBoards = NSKeyedUnarchiver.unarchiveObject(withFile: archivedPath) as? Array<SSFWeBoard> {
                 weBoards.append(weBoard)
