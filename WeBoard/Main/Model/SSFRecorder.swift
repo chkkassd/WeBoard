@@ -17,19 +17,19 @@ typealias RecordCompletion = (Result<String>) -> Void
 enum RecordError: LocalizedError{
     case recordFailToSaveImage
     case recordFailToSaveSound
-    case recordFailToSavePenLines
-    case recordFailToOther
+    case recordFailToSavePenLines(String)
+    case recordFailToArchive
     
     public var errorDescription: String? {
         switch self {
         case .recordFailToSaveImage:
-            return "图片保存失败"
+            return "RecordError: Image Save Failed"
         case .recordFailToSaveSound:
-            return "音频保存失败"
-        case .recordFailToSavePenLines:
-            return "笔迹保存失败"
-        case .recordFailToOther:
-            return "保存失败"
+            return "RecordError: Sound Save Failed"
+        case .recordFailToSavePenLines(let errorString):
+            return errorString
+        case .recordFailToArchive:
+            return "RecordError: Archive Weboards Failed"
         }
     }
 }
@@ -88,7 +88,7 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol, TransformationP
             recordSetting[AVEncoderAudioQualityKey] = AVAudioQuality.medium.rawValue//一定要使用enum的原始值（rawvalue），不然recorder无法正常启动
             
             //3. Set the temporary stored path of the audio
-            let temporaryAudioURL = URL.init(fileURLWithPath: DirectoryPath().pathOfTemporary()).appendingPathComponent(DefaultAudioName)
+            let temporaryAudioURL = URLOfTemporaryAudio()
             
             //4. create the audio recorder
             audioRecoder = try? AVAudioRecorder(url: temporaryAudioURL, settings: recordSetting)
@@ -118,9 +118,17 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol, TransformationP
         endAudioRecord()
         saveRecord(penLines: penLines, backgroundImage: backgroundImage, coverImage: coverImage, completionHandler: completionHandler)
     }
-    
+
+    private func clearAll() {
+        recordUUID = nil
+        recordDuration = nil
+        audioRecoder = nil
+    }
+}
+
+//save operation with functional programming
+extension SSFRecorder {
     // MARK: Save operation
-    
     private func saveRecord(penLines: [SSFLine], backgroundImage: UIImage, coverImage: UIImage, completionHandler: @escaping RecordCompletion) {
         recordUUID = NSUUID().uuidString
         
@@ -139,47 +147,13 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol, TransformationP
         //JSON object of pen lines
         let penDic = translateToJsonDictionaryPointStyle(withPenLines: penLines)
         
-        //save archived objcet
+        //create archived objcet
         let weBoard = SSFWeBoard(directoryURL: createDirectory(uuid: recordUUID!), title: "test", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.pathString!)
         
         //start a new thread to write data to file and save archived object
         DispatchQueue.global().async {
-            var result: Result<String> = Result.success("保存成功")
-            
-            //1.save penlines,picture,sound
-            if (try? backgroundImageData.write(to: backgroundURL)) == nil {
-                result = Result.failure(RecordError.recordFailToSaveImage)
-            }
-            if (try? coverImageData.write(to: coverURL)) == nil {
-                result = Result.failure(RecordError.recordFailToSaveImage)
-            }
-            if (try? FileManager.default.copyItem(at: temporaryAudioURL, to: destinationAudioURL)) == nil {
-                result = Result.failure(RecordError.recordFailToSaveSound)
-            }
-            if JSONSerialization.isValidJSONObject(penDic) {
-                if let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted) {
-                    if (try? penData.write(to: penLinesURL)) == nil {
-                        result = Result.failure(RecordError.recordFailToSavePenLines)
-                    }
-                }else {
-                    result = Result.failure(RecordError.recordFailToOther)
-                }
-            }
-//            if JSONSerialization.isValidJSONObject(penDic), let penData = try? JSONSerialization.data(withJSONObject: penDic, options: JSONSerialization.WritingOptions.prettyPrinted), (try? penData.write(to: penLinesURL)) == nil {
-//                        result = Result.failure(RecordError.recordFailToSavePenLines)
-//                    }
-//                else {
-//                    result = Result.failure(RecordError.recordFailToOther)
-//                }
-        
-            //2.save archived weboard to show list in the fist collection view
-            if var weBoards = NSKeyedUnarchiver.unarchiveObject(withFile: archivedPath) as? Array<SSFWeBoard> {
-                weBoards.append(weBoard)
-                NSKeyedArchiver.archiveRootObject(weBoards, toFile: archivedPath)
-            } else {
-                let arr: [SSFWeBoard] = [weBoard]
-                NSKeyedArchiver.archiveRootObject(arr, toFile: archivedPath)
-            }
+            //save picture,sound,penlines and archive weboard
+            let result = self.saveImage(data: backgroundImageData, url: backgroundURL)<&>self.saveImage(data: coverImageData, url: coverURL)<&>self.saveSound(temporaryURL: temporaryAudioURL, destinationURL: destinationAudioURL)<&>(self.checkJSONObject(penDic)>>-self.dataFromJSONObject>>-self.writePenlines(to: penLinesURL))<&>self.archiveWeboards(board: weBoard, to: archivedPath)
             
             DispatchQueue.main.async {
                 self.clearAll()
@@ -188,9 +162,65 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol, TransformationP
         }
     }
     
-    private func clearAll() {
-        recordUUID = nil
-        recordDuration = nil
-        audioRecoder = nil
+    //save image
+    func saveImage(data: Data ,url: URL) -> Result<String> {
+        if (try? data.write(to: url, options: Data.WritingOptions.atomic)) == nil {
+            return .failure(RecordError.recordFailToSaveImage)
+        } else {
+            return .success("Save Image Success")
+        }
+    }
+    
+    //save sound
+    func saveSound(temporaryURL: URL, destinationURL: URL) -> Result<String> {
+        if (try? FileManager.default.copyItem(at: temporaryURL, to: destinationURL)) == nil{
+            return .failure(RecordError.recordFailToSaveSound)
+        } else {
+            return .success("Save Sound Success")
+        }
+    }
+    
+    //check JSONObject valid
+    func checkJSONObject(_ object: [String : [[String : Any]]]) -> Result<[String : [[String : Any]]]> {
+        if JSONSerialization.isValidJSONObject(object) {
+            return .success(object)
+        } else {
+            return .failure(RecordError.recordFailToSavePenLines("RecordError: Penlines object is not a valid JSONObject"))
+        }
+    }
+    
+    //translate JSONObject to data
+    func dataFromJSONObject(_ object: [String : [[String : Any]]]) -> Result<Data> {
+        guard let data = try? JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted) else {
+            return .failure(RecordError.recordFailToSavePenLines("RecordError: Penlines object fail to translate to data"))
+        }
+        return .success(data)
+    }
+    
+    //save penlines
+    func writePenlines(to url: URL) -> (Data) -> Result<String> {
+        return { data in
+            if (try? data.write(to: url)) == nil {
+                return .failure(RecordError.recordFailToSavePenLines("RecordError: Penlines fail to write to file"))
+            } else {
+                return .success("Save Penlines Success")
+            }
+        }
+    }
+    
+    //save archived weboard to show list in the fist collection view
+    func archiveWeboards(board: SSFWeBoard,to path: String) -> Result<String> {
+        var weboards: [SSFWeBoard] = []
+        if var arr = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? Array<SSFWeBoard> {
+            arr.append(board)
+            weboards = arr
+        } else {
+            weboards.append(board)
+        }
+        if NSKeyedArchiver.archiveRootObject(weboards, toFile: path) {
+            return .success("Archive Weboards Success")
+        } else {
+            return .failure(RecordError.recordFailToArchive)
+        }
     }
 }

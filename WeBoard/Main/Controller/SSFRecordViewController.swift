@@ -241,8 +241,8 @@ extension SSFRecordViewController {
         coverImage = getScaledCoverImage()
         SSFRecorder.sharedInstance.endAndSave(penLines: allRecordingDrawingLines, backgroundImage: backgroundImage!, coverImage: coverImage!) { result in
             switch result {
-            case .success(let str):
-                SwiftNotice.showNoticeWithText(.success, text: str, autoClear: true, autoClearTime: 2)
+            case .success(_):
+                SwiftNotice.showNoticeWithText(.success, text: "保存成功", autoClear: true, autoClearTime: 2)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: DefaultUpdateWeBoardList), object: nil)
                 self.perform(#selector(self.backButtonPressed), with: nil, afterDelay: 2.0)
             case .failure(let error):
