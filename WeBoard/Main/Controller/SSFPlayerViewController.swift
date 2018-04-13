@@ -76,7 +76,7 @@ class SSFPlayerViewController: UIViewController {
 extension SSFPlayerViewController {
     
     // MARK: play control
-    fileprivate func startPlay() {
+    private func startPlay() {
         startTimer()
         SSFPlayer.sharedInstance.start(recordURL: (weBoard?.directoryURL) !! "CrashError: weBoard is nil in SSFPlayerViewController", completionHandler: { result in
             switch result {
@@ -90,33 +90,33 @@ extension SSFPlayerViewController {
         })
     }
     
-    fileprivate func pause() {
+    private func pause() {
         endTimer()
         SSFPlayer.sharedInstance.pause()
     }
     
-    fileprivate func resume() {
+    private func resume() {
         startTimer()
         SSFPlayer.sharedInstance.resume()
     }
     
-    fileprivate func stop() {
+    private func stop() {
         endTimer()
         SSFPlayer.sharedInstance.stop()
     }
     
     //MARK: Timer
-    fileprivate func startTimer() {
+    private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refreshTimer), userInfo: nil, repeats: true)
         
     }
     
-    fileprivate func endTimer() {
+    private func endTimer() {
         timer?.invalidate()
         timer = nil
     }
     
-    @objc fileprivate func refreshTimer() {
+    @objc private func refreshTimer() {
         guard let currentTime = SSFPlayer.sharedInstance.audioPlayer?.currentTime else { return }
         guard let duration = SSFPlayer.sharedInstance.audioPlayer?.duration else { return }
         timeLabel.text = currentTime.timeFormatString()
