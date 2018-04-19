@@ -27,7 +27,6 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(a)
         NotificationCenter.default.addObserver(self, selector: #selector(updateList), name: NSNotification.Name(rawValue: DefaultUpdateWeBoardList), object: nil)
     }
     
