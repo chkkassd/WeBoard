@@ -18,9 +18,9 @@ func angle2Radian(_ angle: Double) -> Double {
 }
 
 #if DEBUG
-let a = "now is debug"
+//debug configuration
 #elseif UAT
-let a = "now is uat"
+//UAT configuration
 #else
-let a = "now is release"
+//Release configuration
 #endif

@@ -22,10 +22,24 @@ class RotateNavigationViewController: UINavigationController {
     }
     
     override var shouldAutorotate: Bool {
-        return false
+        switch checkDevice() {
+        case .pad:
+            return true
+        case .phone:
+            return false
+        default:
+            return false
+        }
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
+        switch checkDevice() {
+        case .pad:
+            return UIInterfaceOrientationMask.landscape
+        case .phone:
+            return UIInterfaceOrientationMask.portrait
+        default:
+            return UIInterfaceOrientationMask.portrait
+        }
     }
 }

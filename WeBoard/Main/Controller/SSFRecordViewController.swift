@@ -193,7 +193,7 @@ extension SSFRecordViewController {
         alert.addAction(clearAction)
         alert.addAction(saveAction)
         
-        if checkDevice() == "pad" {
+        if case .pad = checkDevice() {
             let popover = alert.popoverPresentationController
             popover?.sourceView = self.startButton
             popover?.sourceRect = self.startButton.bounds

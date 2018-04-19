@@ -252,18 +252,18 @@ func !?<T>(wrapped: T?, nilDefault: @autoclosure ()->(value: T, text: String)) -
 
 //MARK: - Public Fundamental Methods
 
-func checkDevice() -> String {
+func checkDevice() -> UIUserInterfaceIdiom {
     switch UIDevice.current.userInterfaceIdiom {
     case .phone:
-        return "phone"
+        return .phone
     case .pad:
-        return "pad"
+        return .pad
     case .carPlay:
-        return "carPlay"
+        return .carPlay
     case .tv:
-        return "tv"        
+        return .tv        
     case .unspecified:
-        return "notFind"
+        return .unspecified
     }
 }
 
