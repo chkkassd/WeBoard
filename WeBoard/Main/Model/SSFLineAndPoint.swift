@@ -14,7 +14,7 @@ struct SSFPoint {
     var time: TimeInterval?
     var color: UIColor
     var width: Double
-    var isStartOfLine: Bool
+    var isStartOfLine: Bool//whether this point is a first point of a line
 }
 
 struct SSFLine {

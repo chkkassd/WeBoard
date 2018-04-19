@@ -18,7 +18,6 @@ class SSFBackgroundCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     // MARK: UICollectionViewDataSource

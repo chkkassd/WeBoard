@@ -16,3 +16,11 @@ let ScreenHeight = UIScreen.main.bounds.size.height
 func angle2Radian(_ angle: Double) -> Double {
     return angle / 180.0 * Double.pi
 }
+
+#if DEBUG
+let a = "now is debug"
+#elseif UAT
+let a = "now is uat"
+#else
+let a = "now is release"
+#endif

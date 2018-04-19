@@ -74,9 +74,9 @@ class SSFCanvasView: UIView {
             
             brushWidth = ssfPoint.width
             brushColor = ssfPoint.color
+            cacheContext?.setLineWidth(CGFloat(brushWidth))
+            cacheContext?.setStrokeColor(brushColor.cgColor)
             if ssfPoint.isStartOfLine {
-                cacheContext?.setLineWidth(CGFloat(brushWidth))
-                cacheContext?.setStrokeColor(brushColor.cgColor)
                 cacheContext?.move(to: ssfPoint.point)
             } else {
                 let priviousPoint: SSFPoint
@@ -85,8 +85,6 @@ class SSFCanvasView: UIView {
                 } else {
                     priviousPoint = points[index - 1]
                 }
-                cacheContext?.setLineWidth(CGFloat(brushWidth))
-                cacheContext?.setStrokeColor(brushColor.cgColor)
                 cacheContext?.move(to: priviousPoint.point)
                 cacheContext?.addLine(to: ssfPoint.point)
             }

@@ -85,12 +85,6 @@ class SSFRecordViewController: UIViewController {
                 canvasView.drawBackground(withColor: backgroundColor)
             }
             canvasView.drawLines(withPoints: points, withPriviousPoint: points.first!)
-        } else if points.count == 0 {
-            if SSFRecorder.sharedInstance.isRecording {
-                canvasView.drawBackground(withImage: backgroundImage!)
-            } else {
-                canvasView.drawBackground(withColor: backgroundColor)
-            }
         }
     }
     
@@ -171,7 +165,7 @@ class SSFRecordViewController: UIViewController {
 
 extension SSFRecordViewController {
     
-    fileprivate func presentImagePickerViewController(withSourceType sourcetype: UIImagePickerControllerSourceType) {
+    private func presentImagePickerViewController(withSourceType sourcetype: UIImagePickerControllerSourceType) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = sourcetype
         imagePickerController.allowsEditing = true
@@ -183,7 +177,7 @@ extension SSFRecordViewController {
         }
     }
     
-    fileprivate func showActionSheet() {
+    private func showActionSheet() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         let resumeAction = UIAlertAction(title: "继续", style: UIAlertActionStyle.default) {  _ in
             self.startButton.isSelected = !self.startButton.isSelected
@@ -198,10 +192,17 @@ extension SSFRecordViewController {
         alert.addAction(resumeAction)
         alert.addAction(clearAction)
         alert.addAction(saveAction)
+        
+        if checkDevice() == "pad" {
+            let popover = alert.popoverPresentationController
+            popover?.sourceView = self.startButton
+            popover?.sourceRect = self.startButton.bounds
+            popover?.permittedArrowDirections = .left
+        }
         self.present(alert, animated: true, completion: nil)
     }
     
-    fileprivate func showClearAllAlert() {
+    private func showClearAllAlert() {
         let alert = UIAlertController(title: nil, message: "确认清除所有绘制?", preferredStyle: UIAlertControllerStyle.alert)
         let sureAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { _ in
             self.clearAll()
@@ -214,7 +215,7 @@ extension SSFRecordViewController {
     
     // MARK: Recorder control
     
-    fileprivate func startRecord() {
+    private func startRecord() {
         //1.Crop the canvas view and use to draw backgroundimage
         backgroundImage = SSFScreenShot.screenShot(withView: canvasView)
         canvasView.drawBackground(withImage: (backgroundImage !! "crop backgroundImage fail"))
@@ -227,17 +228,17 @@ extension SSFRecordViewController {
         startTimer()
     }
     
-    fileprivate func pauseRecord() {
+    private func pauseRecord() {
         SSFRecorder.sharedInstance.pauseAudioRecord()
         endTimer()
     }
     
-    fileprivate func resumeRecord() {
+    private func resumeRecord() {
         SSFRecorder.sharedInstance.resumeAudioRecorder()
         startTimer()
     }
     
-    fileprivate func endAndSaveRecord() {
+    private func endAndSaveRecord() {
         coverImage = getScaledCoverImage()
         SSFRecorder.sharedInstance.endAndSave(penLines: allRecordingDrawingLines, backgroundImage: backgroundImage!, coverImage: coverImage!) { result in
             switch result {
@@ -252,7 +253,7 @@ extension SSFRecordViewController {
         }
     }
     
-    fileprivate func clearAll() {
+    private func clearAll() {
         //1.clear canvas
         canvasView.drawBackground(withColor: UIColor.white)
         allRecordingDrawingLines = []
@@ -275,23 +276,24 @@ extension SSFRecordViewController {
     
     // MARK: timer
     
-    fileprivate func startTimer() {
+    private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerFinished(timer:)), userInfo: nil, repeats: true)
     }
     
-    fileprivate func endTimer() {
+    private func endTimer() {
         timer?.invalidate()
         timer = nil
     }
     
-    @objc fileprivate func timerFinished(timer: Timer) {
+    @objc private func timerFinished(timer: Timer) {
         self.timeLabel.text = SSFRecorder.sharedInstance.currentTime.timeFormatString()
     }
 }
 
 extension SSFRecordViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let image = info[UIImagePickerControllerEditedImage] else { picker.dismiss(animated: true, completion: nil); return}
+        guard let image = info[UIImagePickerControllerEditedImage] else { picker.dismiss(animated: true, completion: nil)
+            return}
         picker.dismiss(animated: true) { 
            self.addElement(image: image as! UIImage)
         }

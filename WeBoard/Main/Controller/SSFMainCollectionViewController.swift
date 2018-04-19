@@ -27,6 +27,7 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(a)
         NotificationCenter.default.addObserver(self, selector: #selector(updateList), name: NSNotification.Name(rawValue: DefaultUpdateWeBoardList), object: nil)
     }
     
@@ -130,9 +131,10 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         if FileManager.default.fileExists(atPath: weBoard.coverImagePath) {
             cell.coverImageView.image = UIImage(contentsOfFile: weBoard.coverImagePath)
         } else {
+            //support default cover image
         }
         
-        cell.deleteCompletion = { //[unowned self] in
+        cell.deleteCompletion = { [unowned self] in
             //Delete operation
             cell.layer.removeAllAnimations()
             self.deleteAndReload(weBoard, indexPath)
