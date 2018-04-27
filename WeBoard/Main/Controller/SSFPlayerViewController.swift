@@ -35,7 +35,9 @@ class SSFPlayerViewController: UIViewController {
     }
     
     //MARK: Property
-    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     public var weBoard: SSFWeBoard?
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!

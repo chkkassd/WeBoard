@@ -17,6 +17,12 @@ class SSFRecordViewController: UIViewController {
         canvasView.delegate = self
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if UIDevice.current.isiPhoneX() {
+            self.startButton.frame = self.startButton.frame.offsetBy(dx: 30, dy: 0)
+        }
+    }
     //MARK: Action
     
     deinit {
@@ -122,6 +128,10 @@ class SSFRecordViewController: UIViewController {
     }
     
     //MARK: Property
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     @IBOutlet weak var canvasView: SSFCanvasView!
     

@@ -227,6 +227,16 @@ extension Optional {
     }
 }
 
+extension UIDevice {
+    func isiPhoneX() -> Bool {
+        if UIScreen.main.bounds.height == 812 || UIScreen.main.bounds.width == 812 {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
 //MARK:- CustomOperator
 
 infix operator !!

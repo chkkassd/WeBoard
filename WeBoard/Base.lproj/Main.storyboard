@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wCP-nG-ZnI">
-    <device id="ipad9_7" orientation="landscape">
+    <device id="retina5_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,7 +14,7 @@
             <objects>
                 <collectionViewController id="ZDb-AK-S8i" customClass="SSFMainCollectionViewController" customModule="WeBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="yvL-OM-yeT">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uN7-DZ-lJG">
@@ -38,7 +38,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="160" height="86"/>
                                                 </imageView>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="start" translatesAutoresizingMaskIntoConstraints="NO" id="Pzc-21-DjF">
-                                                    <rect key="frame" x="55" y="17.5" width="50" height="50"/>
+                                                    <rect key="frame" x="55" y="17.666666666666671" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="Ke7-LZ-7iO"/>
                                                         <constraint firstAttribute="width" constant="50" id="RhF-ES-dGl"/>
@@ -138,39 +138,36 @@
                         <viewControllerLayoutGuide type="bottom" id="Wx5-H5-AMl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="LuJ-OG-vtg">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdy-8Y-hFw" userLabel="color width view">
-                                <rect key="frame" x="984" y="0.0" width="40" height="768"/>
+                                <rect key="frame" x="772" y="0.0" width="40" height="354"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="GWE-4D-nLl">
-                                        <rect key="frame" x="5" y="8" width="30" height="752"/>
+                                        <rect key="frame" x="5" y="30" width="30" height="294"/>
                                         <subviews>
-                                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEe-fM-0hp">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal">
+                                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dEe-fM-0hp">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="36"/>
+                                                <state key="normal" image="redPen">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="colorButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="FAf-Mf-BkE"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nai-C9-D8H">
-                                                <rect key="frame" x="0.0" y="149" width="30" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal">
+                                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nai-C9-D8H">
+                                                <rect key="frame" x="0.0" y="60" width="30" height="36"/>
+                                                <state key="normal" image="blackPen">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="colorButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="elJ-8n-xMp"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1wB-bp-f8U">
-                                                <rect key="frame" x="0.0" y="298.5" width="30" height="30"/>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal">
+                                            <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1wB-bp-f8U">
+                                                <rect key="frame" x="0.0" y="120" width="30" height="36"/>
+                                                <state key="normal" image="bluePen">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -178,7 +175,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNk-hI-axn">
-                                                <rect key="frame" x="0.0" y="447.5" width="30" height="22"/>
+                                                <rect key="frame" x="0.0" y="180" width="30" height="22"/>
                                                 <state key="normal" image="blackPoint3">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -187,7 +184,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0d-hl-Xoc">
-                                                <rect key="frame" x="0.0" y="589" width="30" height="22"/>
+                                                <rect key="frame" x="0.0" y="226" width="30" height="22"/>
                                                 <state key="normal" image="blackPoint2">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -196,7 +193,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TyR-YR-L9K">
-                                                <rect key="frame" x="0.0" y="730" width="30" height="22"/>
+                                                <rect key="frame" x="0.0" y="272" width="30" height="22"/>
                                                 <state key="normal" image="blackPoint1">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -207,59 +204,59 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.81568627450980391" green="0.81757269965277779" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.34901960780000002" green="0.34901960780000002" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="GWE-4D-nLl" firstAttribute="top" secondItem="Qdy-8Y-hFw" secondAttribute="top" constant="8" id="0bF-CV-qzf"/>
-                                    <constraint firstAttribute="bottom" secondItem="GWE-4D-nLl" secondAttribute="bottom" constant="8" id="SBu-h5-jzJ"/>
-                                    <constraint firstItem="GWE-4D-nLl" firstAttribute="leading" secondItem="Qdy-8Y-hFw" secondAttribute="leading" constant="5" id="m2J-oQ-Gii"/>
+                                    <constraint firstAttribute="bottom" secondItem="GWE-4D-nLl" secondAttribute="bottom" constant="30" id="KGQ-Jf-rhy"/>
+                                    <constraint firstAttribute="trailing" secondItem="GWE-4D-nLl" secondAttribute="trailing" constant="5" id="LaB-Bo-kzb"/>
+                                    <constraint firstItem="GWE-4D-nLl" firstAttribute="leading" secondItem="Qdy-8Y-hFw" secondAttribute="leading" constant="5" id="Nvi-nf-8o3"/>
+                                    <constraint firstItem="GWE-4D-nLl" firstAttribute="top" secondItem="Qdy-8Y-hFw" secondAttribute="top" constant="30" id="OkP-2o-qdQ"/>
                                     <constraint firstAttribute="width" constant="40" id="vYF-iq-a2O"/>
-                                    <constraint firstAttribute="trailing" secondItem="GWE-4D-nLl" secondAttribute="trailing" constant="5" id="yG7-E8-tUi"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mPG-Fu-Er6" userLabel="option view">
-                                <rect key="frame" x="0.0" y="0.0" width="984" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="772" height="30"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="R0k-zI-a6O">
-                                        <rect key="frame" x="8" y="0.0" width="968" height="30"/>
+                                        <rect key="frame" x="8" y="0.0" width="756" height="30"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryO-KR-kK7">
-                                                <rect key="frame" x="0.0" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="返回"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryO-KR-kK7">
+                                                <rect key="frame" x="0.0" y="4" width="34" height="22"/>
+                                                <state key="normal" image="recordBack"/>
                                                 <connections>
                                                     <action selector="backButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="ypv-qw-PoQ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2z-Nh-8qd">
-                                                <rect key="frame" x="187.5" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="拍照"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2z-Nh-8qd">
+                                                <rect key="frame" x="145.33333333333334" y="2" width="33" height="26"/>
+                                                <state key="normal" backgroundImage="camera"/>
                                                 <connections>
                                                     <action selector="cameraButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="h6n-9D-32E"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bc-uM-Pxa">
-                                                <rect key="frame" x="375" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="图库"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bc-uM-Pxa">
+                                                <rect key="frame" x="289.66666666666669" y="2" width="34" height="26"/>
+                                                <state key="normal" backgroundImage="library"/>
                                                 <connections>
                                                     <action selector="photoButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="Rtc-ig-LA3"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdS-Z6-MBo">
-                                                <rect key="frame" x="562" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="背景"/>
+                                                <rect key="frame" x="435.33333333333331" y="2" width="38" height="26"/>
+                                                <state key="normal" backgroundImage="backgroundColor"/>
                                                 <connections>
                                                     <action selector="backgroundImageButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="0j8-di-0iT"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dB5-mp-JB0">
-                                                <rect key="frame" x="749.5" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="重绘"/>
+                                                <rect key="frame" x="584.66666666666663" y="1.6666666666666661" width="26" height="27"/>
+                                                <state key="normal" backgroundImage="redraw"/>
                                                 <connections>
                                                     <action selector="revokeAllButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="9Ew-GJ-au1"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6g-SR-8TO">
-                                                <rect key="frame" x="937" y="0.0" width="31" height="30"/>
-                                                <state key="normal" title="撤笔"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F6g-SR-8TO">
+                                                <rect key="frame" x="722" y="4" width="34" height="22"/>
+                                                <state key="normal" image="removeLastOne"/>
                                                 <connections>
                                                     <action selector="revokeAStrokeButtonPressed:" destination="WKH-Xh-OKe" eventType="touchUpInside" id="HBm-b6-XHV"/>
                                                 </connections>
@@ -267,7 +264,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.81568627449999997" green="0.81757269970000002" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.34901960784313724" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="R0k-zI-a6O" firstAttribute="leading" secondItem="mPG-Fu-Er6" secondAttribute="leading" constant="8" id="3vM-jg-4F7"/>
                                     <constraint firstAttribute="height" constant="30" id="GLE-ip-RZO"/>
@@ -277,14 +274,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gKj-az-csh" customClass="SSFCanvasView" customModule="WeBoard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="30" width="984" height="738"/>
+                                <rect key="frame" x="0.0" y="30" width="772" height="324"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m2o-l5-Zfv" customClass="RoundButton" customModule="WeBoard" customModuleProvider="target">
-                                <rect key="frame" x="10" y="354" width="60" height="60"/>
+                                <rect key="frame" x="10" y="157.66666666666666" width="49" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="OWI-gA-oY9"/>
                                     <constraint firstAttribute="height" constant="60" id="qO0-3x-ywg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -295,10 +291,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80H-3z-7RP">
-                                <rect key="frame" x="8" y="745.5" width="80" height="20.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="KEC-1n-gNP"/>
-                                </constraints>
+                                <rect key="frame" x="8" y="331.66666666666669" width="46" height="20.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -311,7 +304,9 @@
                             <constraint firstItem="mPG-Fu-Er6" firstAttribute="leading" secondItem="LuJ-OG-vtg" secondAttribute="leading" id="7y2-MY-21K"/>
                             <constraint firstItem="Wx5-H5-AMl" firstAttribute="top" secondItem="gKj-az-csh" secondAttribute="bottom" id="8Zc-NN-nsL"/>
                             <constraint firstItem="80H-3z-7RP" firstAttribute="leading" secondItem="LuJ-OG-vtg" secondAttribute="leading" constant="8" id="BRq-Vj-24U"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="m2o-l5-Zfv" secondAttribute="trailing" constant="20" symbolic="YES" id="BxO-ta-5Bq"/>
                             <constraint firstItem="gKj-az-csh" firstAttribute="top" secondItem="mPG-Fu-Er6" secondAttribute="bottom" id="Gtb-4C-b6c"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="80H-3z-7RP" secondAttribute="trailing" constant="20" symbolic="YES" id="H3T-ae-POu"/>
                             <constraint firstAttribute="trailing" secondItem="Qdy-8Y-hFw" secondAttribute="trailing" id="LAc-nb-4qi"/>
                             <constraint firstItem="Qdy-8Y-hFw" firstAttribute="leading" secondItem="gKj-az-csh" secondAttribute="trailing" id="U6e-1g-bo2"/>
                             <constraint firstItem="m2o-l5-Zfv" firstAttribute="leading" secondItem="LuJ-OG-vtg" secondAttribute="leading" constant="10" id="VRs-dU-XXn"/>
@@ -343,11 +338,11 @@
                         <viewControllerLayoutGuide type="bottom" id="iay-6A-MGi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="b6u-4B-cQX">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JF4-UV-Cro" userLabel="control view">
-                                <rect key="frame" x="0.0" y="0.0" width="1024" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="812" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yJ1-Fr-Xd4">
                                         <rect key="frame" x="45" y="1" width="28" height="28"/>
@@ -362,10 +357,10 @@
                                         </connections>
                                     </button>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oEu-0w-E4y">
-                                        <rect key="frame" x="81" y="14" width="858" height="2"/>
+                                        <rect key="frame" x="81" y="14" width="646" height="2"/>
                                     </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvG-M2-0NV">
-                                        <rect key="frame" x="947" y="5" width="62" height="21"/>
+                                        <rect key="frame" x="735" y="5" width="62" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="62" id="TKv-C5-Dfq"/>
                                             <constraint firstAttribute="height" constant="21" id="U08-He-sRX"/>
@@ -401,7 +396,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IPx-PP-Paq" customClass="SSFCanvasView" customModule="WeBoard" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="30" width="1024" height="738"/>
+                                <rect key="frame" x="0.0" y="30" width="812" height="324"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -433,7 +428,7 @@
             <objects>
                 <collectionViewController id="dWj-z6-vFh" customClass="SSFBackgroundCollectionViewController" customModule="WeBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="uDO-Md-sdr">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.86274509803921573" green="0.86274509803921573" blue="0.86274509803921573" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="20" id="aKq-fc-wPF">
@@ -468,7 +463,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wCP-nG-ZnI" customClass="RotateNavigationViewController" customModule="WeBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="x7t-C3-EFT">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="32"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -483,12 +478,21 @@
     </scenes>
     <resources>
         <image name="back" width="30" height="30"/>
+        <image name="backgroundColor" width="38" height="26"/>
+        <image name="blackPen" width="36" height="36"/>
         <image name="blackPoint1" width="10" height="10"/>
         <image name="blackPoint2" width="15" height="15"/>
         <image name="blackPoint3" width="20" height="20"/>
+        <image name="bluePen" width="36" height="36"/>
+        <image name="camera" width="33" height="26"/>
         <image name="close_delete" width="30" height="30"/>
+        <image name="library" width="34" height="26"/>
         <image name="playStyle-pause" width="30" height="30"/>
         <image name="playStyle-play" width="30" height="30"/>
+        <image name="recordBack" width="34" height="10"/>
+        <image name="redPen" width="36" height="36"/>
+        <image name="redraw" width="26" height="27"/>
+        <image name="removeLastOne" width="34" height="21"/>
         <image name="start" width="100" height="100"/>
     </resources>
 </document>
