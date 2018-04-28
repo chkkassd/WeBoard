@@ -22,3 +22,7 @@ struct SSFLine {
     var color: UIColor
     var width: Double
 }
+
+extension SSFPoint {
+    static let defaultZeroPoint = SSFPoint(point: CGPoint(x: 0, y: 0), time: 0, color: UIColor.black, width: 1.0, isStartOfLine: false)
+}

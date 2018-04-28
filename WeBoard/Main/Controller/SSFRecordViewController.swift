@@ -84,13 +84,13 @@ class SSFRecordViewController: UIViewController {
             points = allBackgroundDrawingLines.flatMap{ return $0.pointsOfLine }
         }
         
-        if points.count > 0 {
+        if points.count >= 0 {
             if SSFRecorder.sharedInstance.isRecording {
                 canvasView.drawBackground(withImage: backgroundImage!)
             } else {
                 canvasView.drawBackground(withColor: backgroundColor)
             }
-            canvasView.drawLines(withPoints: points, withPriviousPoint: points.first!)
+            canvasView.drawLines(withPoints: points, withPriviousPoint: points.first ?? SSFPoint.defaultZeroPoint)
         }
     }
     
