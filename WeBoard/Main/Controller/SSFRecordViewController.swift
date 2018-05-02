@@ -100,7 +100,7 @@ class SSFRecordViewController: UIViewController {
         }
     }
     
-    @IBAction func startButtonPressed(_ sender: RoundButton) {
+    @IBAction func startButtonPressed(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         
         if sender.isSelected,!SSFRecorder.sharedInstance.isRecording, SSFRecorder.sharedInstance.audioRecoder == nil {
@@ -137,7 +137,7 @@ class SSFRecordViewController: UIViewController {
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    @IBOutlet weak var startButton: RoundButton!
+    @IBOutlet weak var startButton: UIButton!
     
     var timer: Timer?
     

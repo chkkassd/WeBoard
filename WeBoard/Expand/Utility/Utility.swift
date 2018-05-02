@@ -237,6 +237,19 @@ extension UIDevice {
     }
 }
 
+extension UIView {
+    //discribe corner radius of a view and reflect in storyboard
+    @IBInspectable var viewCornerRadius: CGFloat {
+        set {
+            self.layer.cornerRadius = newValue
+            self.layer.masksToBounds = newValue > 0
+        }
+        get {
+            return self.layer.cornerRadius
+        }
+    }
+}
+
 //MARK:- CustomOperator
 
 infix operator !!

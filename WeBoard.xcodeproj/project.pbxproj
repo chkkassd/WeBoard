@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		91199CDA1E26080100FAB992 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CD91E26080100FAB992 /* RoundButton.swift */; };
 		91199CDC1E262E0400FAB992 /* SSFElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CDB1E262E0400FAB992 /* SSFElementView.swift */; };
 		91199CDE1E26308900FAB992 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CDD1E26308900FAB992 /* Constant.swift */; };
 		91199CE01E27293200FAB992 /* SSFBackgroundCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91199CDF1E27293200FAB992 /* SSFBackgroundCollectionViewController.swift */; };
@@ -41,7 +40,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		91199CD91E26080100FAB992 /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		91199CDB1E262E0400FAB992 /* SSFElementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFElementView.swift; sourceTree = "<group>"; };
 		91199CDD1E26308900FAB992 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		91199CDF1E27293200FAB992 /* SSFBackgroundCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFBackgroundCollectionViewController.swift; sourceTree = "<group>"; };
@@ -211,7 +209,6 @@
 				91B9EBF71DFE51A60058D05B /* Main.storyboard */,
 				91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */,
 				91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */,
-				91199CD91E26080100FAB992 /* RoundButton.swift */,
 				91199CDB1E262E0400FAB992 /* SSFElementView.swift */,
 			);
 			path = View;
@@ -327,7 +324,6 @@
 				91C9ADD51E81121300978E14 /* ResultDescription.swift in Sources */,
 				917B21321E8E597B0058114E /* NetWorkResource.swift in Sources */,
 				91C9ADD71E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift in Sources */,
-				91199CDA1E26080100FAB992 /* RoundButton.swift in Sources */,
 				91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */,
 				91199CF51E4C40C900FAB992 /* RecordPathProtocol.swift in Sources */,
 				91B9EC131DFEA22A0058D05B /* SSFMainCollectionViewController.swift in Sources */,
