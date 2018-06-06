@@ -6,9 +6,28 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Test View Controller-->
+        <scene sceneID="Gcb-bE-dVI">
+            <objects>
+                <viewController id="Jsg-dY-ybP" customClass="TestViewController" customModule="WeBoard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="I8M-HN-vyU"/>
+                        <viewControllerLayoutGuide type="bottom" id="NYl-QE-6f3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="4Kv-uB-C8d">
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OlU-Lc-MFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1196" y="-999"/>
+        </scene>
         <!--微录制-->
         <scene sceneID="QIt-SL-6dV">
             <objects>
@@ -113,12 +132,19 @@
                                 <action selector="recordButtonPressed:" destination="ZDb-AK-S8i" id="SEa-kS-lfw"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="编辑" id="ToF-d6-5Se">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="editButtonPressed:" destination="ZDb-AK-S8i" id="aI9-Iv-8Vs"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="编辑" id="ToF-d6-5Se">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="editButtonPressed:" destination="ZDb-AK-S8i" id="aI9-Iv-8Vs"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="organize" id="iXE-aM-ZWb">
+                                <connections>
+                                    <segue destination="Jsg-dY-ybP" kind="show" id="13n-Tf-Fxa"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <segue destination="Jmd-kw-miE" kind="presentation" identifier="showPlayerController" id="lCQ-mk-pj7"/>

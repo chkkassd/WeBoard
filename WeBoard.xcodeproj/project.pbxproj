@@ -34,6 +34,8 @@
 		91B9EC151DFEA3560058D05B /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B9EC141DFEA3560058D05B /* MainCollectionViewCell.swift */; };
 		91C9ADD51E81121300978E14 /* ResultDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C9ADD41E81121300978E14 /* ResultDescription.swift */; };
 		91C9ADD71E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C9ADD61E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift */; };
+		91D5D08420C7E03800F503EC /* SSFGraphKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91D5D08320C7E03800F503EC /* SSFGraphKit.framework */; };
+		91D5D08620C7E15900F503EC /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D5D08520C7E15900F503EC /* TestViewController.swift */; };
 		91E2ACA81E08CDDE00EF9A0D /* SSFRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACA71E08CDDE00EF9A0D /* SSFRecordViewController.swift */; };
 		91E2ACAC1E08FFE500EF9A0D /* RotateNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */; };
 		91E2ACAE1E09051900EF9A0D /* SSFCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */; };
@@ -70,6 +72,8 @@
 		91B9EC1E1DFEAD070058D05B /* WeBoard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeBoard-Bridging-Header.h"; sourceTree = "<group>"; };
 		91C9ADD41E81121300978E14 /* ResultDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultDescription.swift; sourceTree = "<group>"; };
 		91C9ADD61E88C5C200978E14 /* TransformationPensAndJsonProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformationPensAndJsonProtocol.swift; sourceTree = "<group>"; };
+		91D5D08320C7E03800F503EC /* SSFGraphKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SSFGraphKit.framework; path = Carthage/Build/iOS/SSFGraphKit.framework; sourceTree = "<group>"; };
+		91D5D08520C7E15900F503EC /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		91E2ACA71E08CDDE00EF9A0D /* SSFRecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFRecordViewController.swift; sourceTree = "<group>"; };
 		91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateNavigationViewController.swift; sourceTree = "<group>"; };
 		91E2ACAD1E09051900EF9A0D /* SSFCanvasView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SSFCanvasView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				917B212F1E8CE7A50058114E /* Alamofire.framework in Frameworks */,
+				91D5D08420C7E03800F503EC /* SSFGraphKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +105,7 @@
 		917B212D1E8CE7A40058114E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91D5D08320C7E03800F503EC /* SSFGraphKit.framework */,
 				917B212E1E8CE7A50058114E /* Alamofire.framework */,
 			);
 			name = Frameworks;
@@ -187,6 +193,7 @@
 				91E2ACAB1E08FFE500EF9A0D /* RotateNavigationViewController.swift */,
 				91199CDF1E27293200FAB992 /* SSFBackgroundCollectionViewController.swift */,
 				91199CF61E4C49EC00FAB992 /* SSFPlayerViewController.swift */,
+				91D5D08520C7E15900F503EC /* TestViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -294,6 +301,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SSFGraphKit.framework",
 			);
 			outputPaths = (
 			);
@@ -318,6 +326,7 @@
 				91199CF91E4C533000FAB992 /* SSFPlayer.swift in Sources */,
 				91E2ACAE1E09051900EF9A0D /* SSFCanvasView.swift in Sources */,
 				91B9EC0E1DFE9EEA0058D05B /* Utility.swift in Sources */,
+				91D5D08620C7E15900F503EC /* TestViewController.swift in Sources */,
 				91B9EC151DFEA3560058D05B /* MainCollectionViewCell.swift in Sources */,
 				91B9EC0D1DFE9EEA0058D05B /* SwiftNotice.swift in Sources */,
 				91B9EBF41DFE51A60058D05B /* AppDelegate.swift in Sources */,
@@ -427,7 +436,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = WeBoard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -561,7 +570,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = WeBoard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -584,7 +593,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = WeBoard/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ssf.WeBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
