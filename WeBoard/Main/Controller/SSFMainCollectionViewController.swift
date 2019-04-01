@@ -11,7 +11,6 @@ import UIKit
 class SSFMainCollectionViewController: UICollectionViewController ,RecordPathProtocol {
 
     var allData: [SSFWeBoard]? {
-        
         let path = pathOfArchivedWeBoard()
         guard let arr = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? Array<SSFWeBoard> else {
             return nil
