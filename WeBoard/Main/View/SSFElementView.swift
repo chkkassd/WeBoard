@@ -58,7 +58,7 @@ class SSFElementView: UIView {
     }
     
     @objc private func pan(gestureRecognizer: UIPanGestureRecognizer) {
-        if gestureRecognizer.state == UIGestureRecognizerState.changed {
+        if gestureRecognizer.state == UIGestureRecognizer.State.changed {
             let point = gestureRecognizer.translation(in: self)
             self.center = CGPoint(x: self.center.x + point.x, y: self.center.y + point.y)
             gestureRecognizer.setTranslation(CGPoint(x: 0.0, y: 0.0), in: self)
@@ -74,7 +74,7 @@ class SSFElementView: UIView {
             self.imageView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         }
         
-        if gestureRecognizer.state == UIGestureRecognizerState.ended {
+        if gestureRecognizer.state == UIGestureRecognizer.State.ended {
             self.originFrame = self.frame
         }
     }

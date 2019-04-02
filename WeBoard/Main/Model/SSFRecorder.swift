@@ -61,7 +61,7 @@ class SSFRecorder: RecordPathProtocol , ColorDescriptionPotocol, TransformationP
         clearAll()
         if audioRecoder == nil {
             //1. Select the category and option of AVAudioSession, and then activate the session.
-            try? AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayAndRecord)
+            try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)))
             try? AVAudioSession.sharedInstance().setActive(true)
             AVAudioSession.sharedInstance().requestRecordPermission () {
                 allowed in
@@ -141,8 +141,8 @@ extension SSFRecorder {
         let archivedPath = pathOfArchivedWeBoard()
         
         //image data
-        guard let backgroundImageData = UIImageJPEGRepresentation(backgroundImage, 1.0) else { return }
-        guard let coverImageData = UIImageJPEGRepresentation(coverImage, 1.0) else { return }
+        guard let backgroundImageData = backgroundImage.jpegData(compressionQuality: 1.0) else { return }
+        guard let coverImageData = coverImage.jpegData(compressionQuality: 1.0) else { return }
         
         //JSON object of pen lines
         let penDic = translateToJsonDictionaryPointStyle(withPenLines: penLines)
@@ -223,4 +223,9 @@ extension SSFRecorder {
             return .failure(RecordError.recordFailToArchive)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

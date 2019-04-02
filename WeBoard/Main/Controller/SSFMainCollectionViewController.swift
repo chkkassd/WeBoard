@@ -65,7 +65,7 @@ class SSFMainCollectionViewController: UICollectionViewController ,RecordPathPro
         animation.values = [angle2Radian(-1.0), angle2Radian(1.0), angle2Radian(-1.0)]
         animation.duration = 0.25
         animation.repeatCount = MAXFLOAT
-        animation.fillMode = kCAFillModeForwards
+        animation.fillMode = CAMediaTimingFillMode.forwards
         view.layer.add(animation, forKey: "shake")
     }
     

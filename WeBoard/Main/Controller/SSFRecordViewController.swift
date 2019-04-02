@@ -56,13 +56,13 @@ class SSFRecordViewController: UIViewController {
     
     @IBAction func cameraButtonPressed(_ sender: UIButton) {
         if !SSFRecorder.sharedInstance.isRecording {
-            presentImagePickerViewController(withSourceType: UIImagePickerControllerSourceType.camera)
+            presentImagePickerViewController(withSourceType: UIImagePickerController.SourceType.camera)
         }
     }
     
     @IBAction func photoButtonPressed(_ sender: UIButton) {
         if !SSFRecorder.sharedInstance.isRecording {
-            presentImagePickerViewController(withSourceType: UIImagePickerControllerSourceType.photoLibrary)
+            presentImagePickerViewController(withSourceType: UIImagePickerController.SourceType.photoLibrary)
         }
     }
     
@@ -175,7 +175,7 @@ class SSFRecordViewController: UIViewController {
 
 extension SSFRecordViewController {
     
-    private func presentImagePickerViewController(withSourceType sourcetype: UIImagePickerControllerSourceType) {
+    private func presentImagePickerViewController(withSourceType sourcetype: UIImagePickerController.SourceType) {
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = sourcetype
         imagePickerController.allowsEditing = true
@@ -188,15 +188,15 @@ extension SSFRecordViewController {
     }
     
     private func showActionSheet() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        let resumeAction = UIAlertAction(title: "继续", style: UIAlertActionStyle.default) {  _ in
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        let resumeAction = UIAlertAction(title: "继续", style: UIAlertAction.Style.default) {  _ in
             self.startButton.isSelected = !self.startButton.isSelected
             self.resumeRecord()
         }
-        let clearAction = UIAlertAction(title: "废弃", style: UIAlertActionStyle.default) { _ in
+        let clearAction = UIAlertAction(title: "废弃", style: UIAlertAction.Style.default) { _ in
             self.clearAll()
         }
-        let saveAction = UIAlertAction(title: "保存", style: UIAlertActionStyle.default) { _ in
+        let saveAction = UIAlertAction(title: "保存", style: UIAlertAction.Style.default) { _ in
             self.endAndSaveRecord()
         }
         alert.addAction(resumeAction)
@@ -213,11 +213,11 @@ extension SSFRecordViewController {
     }
     
     private func showClearAllAlert() {
-        let alert = UIAlertController(title: nil, message: "确认清除所有绘制?", preferredStyle: UIAlertControllerStyle.alert)
-        let sureAction = UIAlertAction(title: "确定", style: UIAlertActionStyle.default) { _ in
+        let alert = UIAlertController(title: nil, message: "确认清除所有绘制?", preferredStyle: UIAlertController.Style.alert)
+        let sureAction = UIAlertAction(title: "确定", style: UIAlertAction.Style.default) { _ in
             self.clearAll()
         }
-        let cancelAction = UIAlertAction(title: "取消", style: UIAlertActionStyle.cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "取消", style: UIAlertAction.Style.cancel, handler: nil)
         alert.addAction(sureAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
@@ -301,8 +301,11 @@ extension SSFRecordViewController {
 }
 
 extension SSFRecordViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let image = info[UIImagePickerControllerEditedImage] else { picker.dismiss(animated: true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+// Local variable inserted by Swift 4.2 migrator.
+let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
+
+        guard let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.editedImage)] else { picker.dismiss(animated: true, completion: nil)
             return}
         picker.dismiss(animated: true) { 
            self.addElement(image: image as! UIImage)
@@ -346,4 +349,14 @@ extension SSFRecordViewController: SSFCanvasViewDelegate {
             allBackgroundDrawingLines.append(currentLine)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+	return input.rawValue
 }

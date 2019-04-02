@@ -171,7 +171,7 @@ class SSFPlayer: NSObject, ColorDescriptionPotocol {
     
     private func startDisplayLink() {
         displayLink = CADisplayLink(target: self, selector: #selector(refreshCanvasView))
-        displayLink?.add(to: RunLoop.current, forMode: RunLoopMode.defaultRunLoopMode)
+        displayLink?.add(to: RunLoop.current, forMode: RunLoop.Mode.default)
     }
     
     private func endDisplayLink() {
