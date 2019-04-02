@@ -148,7 +148,7 @@ extension SSFRecorder {
         let penDic = translateToJsonDictionaryPointStyle(withPenLines: penLines)
         
         //create archived objcet
-        let weBoard = SSFWeBoard(directoryURL: createDirectory(uuid: recordUUID!), title: "", time: (recordDuration !! "Crash reason: recordDuration is nil"), coverImagePath: coverURL.pathString!)
+        let weBoard = SSFWeBoard(uuidString: recordUUID!, title: "", time: (recordDuration !! "Crash reason: recordDuration is nil"))
         
         //start a new thread to write data to file and save archived object
         DispatchQueue.global().async {

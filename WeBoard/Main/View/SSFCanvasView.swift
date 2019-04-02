@@ -59,8 +59,8 @@ class SSFCanvasView: UIView {
     }
     
     public func endAndFree() {
-        free(self.bitmapData)
-        self.bitmapData = nil
+//        free(self.bitmapData)
+//        self.bitmapData = nil
     }
     
     ///This function acts on drawing with points in playing.
@@ -117,29 +117,29 @@ class SSFCanvasView: UIView {
         let bitmapWidth = Int(self.bounds.size.width)
         let bitmapHeight = Int(self.bounds.size.height)
         let bitmapBytesPerRow = bitmapWidth * 4
-        let bitmapBytesCount = bitmapBytesPerRow * bitmapHeight
-        self.bitmapData = malloc(bitmapBytesCount)//calloc(bitmapBytesCount, MemoryLayout<CChar>.size)
-        
-        if self.bitmapData == nil {
-            return nil
-        }
+//        let bitmapBytesCount = bitmapBytesPerRow * bitmapHeight
+//        self.bitmapData = malloc(bitmapBytesCount)//calloc(bitmapBytesCount, MemoryLayout<CChar>.size)
+//
+//        if self.bitmapData == nil {
+//            return nil
+//        }
         
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipFirst.rawValue).union(.byteOrder32Little)
         
-        let context = CGContext(data: self.bitmapData, width: bitmapWidth, height: bitmapHeight, bitsPerComponent: 8, bytesPerRow: bitmapBytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue)
+        let context = CGContext(data: nil, width: bitmapWidth, height: bitmapHeight, bitsPerComponent: 8, bytesPerRow: bitmapBytesPerRow, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue)
         context?.setLineCap(CGLineCap.round)
         context?.setFillColor(UIColor.white.cgColor)
         context?.fill(self.bounds)
         
         guard context != nil else {
-            free(self.bitmapData)
+//            free(self.bitmapData)
             return nil
         }
         return context
 
     }()
     
-    private var bitmapData: UnsafeMutableRawPointer!
+//    private var bitmapData: UnsafeMutableRawPointer!
     
     private var previousPoint: CGPoint!
     
